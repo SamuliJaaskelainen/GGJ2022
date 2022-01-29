@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using XInputDotNetPure;
 
 public class LapSystem : MonoBehaviour
 {
@@ -69,7 +69,8 @@ public class LapSystem : MonoBehaviour
             time += Time.deltaTime;
         }
 
-        if (Input.GetButton("Restart"))
+        GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+        if (Input.GetButton("Restart") || gamePadState.Buttons.Y == ButtonState.Pressed)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }

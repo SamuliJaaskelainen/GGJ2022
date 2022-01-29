@@ -45,7 +45,6 @@ public class Bike : MonoBehaviour
     {
         GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
 
-
         throttle = Input.GetAxis("Throttle");
         throttle += gamePadState.Triggers.Right;
         throttle -= gamePadState.Triggers.Left;
