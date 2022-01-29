@@ -69,7 +69,9 @@ namespace AudioRender
         }
 
         private void OnPostRenderCallback(Camera camera) {
-            gfxRenderer.Render(submittedLines, decayMaterial, lineMaterial);
+            if (camera == Camera.main) {
+                gfxRenderer.Render(submittedLines, decayMaterial, lineMaterial);
+            }
         }
 
         public Material decayMaterial;

@@ -74,7 +74,6 @@ Shader "Unlit/OscilloscopeLine"
                 if(i.length < 1e-5)
                 {
                     multiplier *= exp(-dot(i.coord, i.coord) / (2.0 * sigma * sigma)) / (SQRT2PI * sigma);
-                    return float4(0.0f, 0.0f, 1.0f, 1.0f);
                 } else {
                     float f = i.deltaTime * sigma / (SQRT2 * i.length * _DecayTime);
 
