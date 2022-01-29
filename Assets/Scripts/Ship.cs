@@ -4,20 +4,54 @@ using UnityEngine;
 using XInputDotNetPure;
 
 public class Ship : MonoBehaviour {
+    [Header("Multiplier for down force")]
     public float downForce = 1f;
+
+    [Header("Thrust force while accelerating")]
     public float accelerationForce = 2000f;
+
+    [Header("Thrust force while reversing")]
     public float reverseForce = 200f;
+
+    [Header("Drag brake position on X axis")]
     public float brakeLeverage = 0.1f;
+
+    [Header("Drag brake force (left / right brake)")]
     public float brakeDrag = 0.3f;
+
+    [Header("Brake force (handbrake)")]
+    public float brakeForce = 8000f;
+
+    [Header("Multiplier for turning while mid-air")]
     public float airTurnModifier = 0.2f;
+
+    [Header("Hover force strength relative to gravity")]
     public float upForce = 3.0f;
-    public float forwardDrag = 3.0f;
-    public float sideDrag = 3.0f;
+
+    [Header("Air resistance on Z axis")]
+    public float forwardDrag = 0.015f;
+
+    [Header("Air resistance on X axis")]
+    public float sideDrag = 0.2f;
+
+    [Header("Air resistance modifier while not close to ground")]
+    public float airDragModifier = 0.2f;
+
+    [Header("Turn power multiplier")]
     public float turnPower = 3.0f;
+
+    [Header("Rate of steering adjustment")]
     public float bankRate = 120.0f;
+
+    [Header("Max steering value")]
     public float maxBankAngle = 30.0f;
-public float debugRayScale = 0.001f;
+
+    [Header("Hover height")]
     public float targetHeight = 1.0f;
+
+    [Header("Scale of editor debug rays")]
+    public float debugRayScale = 0.01f;
+
     public Transform cameraTarget;
     public Transform body;
     float throttle;
@@ -99,7 +133,7 @@ public float debugRayScale = 0.001f;
                 AddRelativeForce(-reverseForce * Vector3.forward, Color.green);
             }
             if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f) {
-                AddRelativeForce(-8000 * Vector3.forward, Color.green);
+                AddRelativeForce(-brakeForce * Vector3.forward, Color.green);
             }
         }
 
@@ -112,7 +146,7 @@ public float debugRayScale = 0.001f;
     }
 
     private void ApplyDrag(bool groundContact) {
-        float mod = groundContact ? 1.0f : 0.2f;
+        float mod = groundContact ? 1.0f : airDragModifier;
         float forwardSpeed = Vector3.Dot(transform.forward, rb.velocity);
         float rightSpeed = Vector3.Dot(transform.right, rb.velocity);
         AddForce(-mod * forwardDrag * forwardSpeed * Mathf.Abs(forwardSpeed) * transform.forward, Color.magenta);
@@ -159,7 +193,7 @@ public float debugRayScale = 0.001f;
         AddForceAtPosition(force, rb.worldCenterOfMass, color);
     }
     private void AddForceAtPosition(Vector3 force, Vector3 position, Color color) {
-        Debug.DrawRay(position, force, color);
+        Debug.DrawRay(position, debugRayScale * force, color);
         rb.AddForceAtPosition(force, position, ForceMode.Force);
     }
 
