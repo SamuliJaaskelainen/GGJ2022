@@ -241,7 +241,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a26abbf4c351faf4ca7569380012aee9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -354,7 +354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffects:
-  - {fileID: 8300000, guid: b3141c7852ade1744bcf689539555aec, type: 3}
   - {fileID: 8300000, guid: 751aa5337632d7d49a0035bbcc831a0d, type: 3}
   - {fileID: 8300000, guid: e94414bc76c334044a2354e0c35f0cba, type: 3}
   - {fileID: 8300000, guid: c4647d05122843c4da321d7124183cb0, type: 3}
@@ -365,6 +364,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5f2fcc434880b4e4aaf492734176cbca, type: 3}
   - {fileID: 8300000, guid: a26abbf4c351faf4ca7569380012aee9, type: 3}
   - {fileID: 8300000, guid: fcaf2723a3e3596498d7b8b86c299a86, type: 3}
+  - {fileID: 8300000, guid: ee16d2156855e9844bfa9a6be29b7f87, type: 3}
   musicLayers:
   - {fileID: 1693802531}
   - {fileID: 1654876321}
@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 2114476654}
   m_Follow: {fileID: 2114476654}
   m_Lens:
-    FieldOfView: 60.28349
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 100
@@ -1810,6 +1810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1384815852}
   - component: {fileID: 1384815853}
+  - component: {fileID: 1384815854}
   m_Layer: 6
   m_Name: ColliderFrontWheels
   m_TagString: Untagged
@@ -1845,6 +1846,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5030788177791286365, guid: 2578448781a5d584eb75e52a7ded9728, type: 3}
+--- !u!114 &1384815854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384815851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c0e3af94e5504faca7d0b470b32f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1428190660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,7 +1902,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: d744d4b525a21db46b57be200eac238d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.5
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -2205,6 +2218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477867192}
   - component: {fileID: 1477867193}
+  - component: {fileID: 1477867194}
   m_Layer: 6
   m_Name: Collider
   m_TagString: Player
@@ -2240,6 +2254,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3298800115395149385, guid: 2578448781a5d584eb75e52a7ded9728, type: 3}
+--- !u!114 &1477867194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477867191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c0e3af94e5504faca7d0b470b32f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1567230579
 GameObject:
   m_ObjectHideFlags: 0
@@ -11465,7 +11491,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 6686b0ab0cd10fe42bdb150c99bb0b4d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 3
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -13158,7 +13184,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 100
-  field of view: 60.28349
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

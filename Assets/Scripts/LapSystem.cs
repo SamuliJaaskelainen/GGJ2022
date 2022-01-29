@@ -64,5 +64,10 @@ public class LapSystem : MonoBehaviour
         {
             time += Time.deltaTime;
         }
+
+        if (Input.GetButton("Restart"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+        }
     }
 }
