@@ -24,6 +24,7 @@ public class LapSystem : MonoBehaviour
         if (currentCheckpoint == 0 && id == 1)
         {
             currentCheckpoint = id;
+            AudioManager.Instance.PlaySound("Start", transform.position);
             Debug.Log("Race begins!");
         }
         else if (currentCheckpoint == (id - 1))
@@ -47,7 +48,12 @@ public class LapSystem : MonoBehaviour
                 timeWire.enabled = true;
                 timeCamera.SetActive(true);
                 bike.enabled = false;
+                AudioManager.Instance.PlaySound("Complete", transform.position);
                 Debug.Log("Game over");
+            }
+            else
+            {
+                AudioManager.Instance.PlaySound("Lap", transform.position);
             }
         }
     }

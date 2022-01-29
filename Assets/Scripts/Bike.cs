@@ -5,6 +5,9 @@ using Cinemachine;
 
 public class Bike : MonoBehaviour
 {
+    public AudioSource driveAudio;
+    public AudioSource boostAudio;
+    public AudioSource driftAudio;
     public float[] maxTorque;
     public float boostTorque;
     public float boostTime;
@@ -17,7 +20,7 @@ public class Bike : MonoBehaviour
     Wheel[] wheels;
     float throttle;
     float turn;
-    bool drfit;
+    bool drift;
     Rigidbody rb;
     int warps;
     float boostTimer;
@@ -29,17 +32,25 @@ public class Bike : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         dimension1.SetActive(true);
         dimension2.SetActive(false);
+
+        AudioManager.Instance.SetMusicLayer(1, false);
+        AudioManager.Instance.SetMusicLayer(2, false);
+        AudioManager.Instance.SetMusicLayer(3, false);
+        AudioManager.Instance.SetMusicLayer(4, false);
+        AudioManager.Instance.SetMusicLayer(5, false);
+        AudioManager.Instance.SetMusicLayer(6, false);
+        AudioManager.Instance.SetMusicLayer(7, false);
     }
 
     void Update()
     {
         throttle = Input.GetAxis("Throttle");
         turn = Input.GetAxis("Turn");
-        drfit = Input.GetButton("Drift");
+        drift = Input.GetButton("Drift");
         isBoosting = Time.time < boostTimer;
 
-        if (drfit) throttle = 0.0f;
-        cameraTarget.localPosition = new Vector3(turn * (drfit ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        if (drift) throttle = 0.0f;
+        cameraTarget.localPosition = new Vector3(turn * (drift ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
 
         float fovTarget = isBoosting ? 80.0f : (dimension2.activeSelf ? 70.0f : 60f);
         if (bikeCamera.m_Lens.FieldOfView > fovTarget)
@@ -53,6 +64,34 @@ public class Bike : MonoBehaviour
 
         wireRenderer.randomOffset -= 0.12f * Time.deltaTime;
         wireRenderer.randomOffset = Mathf.Clamp01(wireRenderer.randomOffset);
+
+        if (isBoosting)
+        {
+            if (!boostAudio.isPlaying)
+            {
+                boostAudio.Play();
+                driftAudio.Pause();
+                driveAudio.Pause();
+            }
+        }
+        else if (drift)
+        {
+            if (!driftAudio.isPlaying)
+            {
+                boostAudio.Pause();
+                driftAudio.Play();
+                driveAudio.Pause();
+            }
+        }
+        else
+        {
+            if (!driveAudio.isPlaying)
+            {
+                boostAudio.Pause();
+                driftAudio.Pause();
+                driveAudio.Play();
+            }
+        }
     }
 
     void FixedUpdate()
@@ -73,7 +112,7 @@ public class Bike : MonoBehaviour
                 w.Accelerate(throttle * maxTorque[warps]);
             }
             w.UpdatePosition();
-            if (drfit)
+            if (drift)
             {
                 w.Drift();
             }
@@ -91,6 +130,7 @@ public class Bike : MonoBehaviour
 
     public void Warp()
     {
+        AudioManager.Instance.PlaySound("WarpEnter", transform.position);
         boostTimer = Time.time + boostTime;
         warps++;
         warps = Mathf.Clamp(warps, 0, 3);
@@ -106,5 +146,14 @@ public class Bike : MonoBehaviour
         dimension1.SetActive(!dimension1.activeSelf);
         dimension2.SetActive(!dimension2.activeSelf);
         wireRenderer.randomOffset = 0.1f;
+
+        if (dimension1.activeSelf)
+        {
+            AudioManager.Instance.PlaySound("DimensionShiftTo1", transform.position);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySound("DimensionShiftTo2", transform.position);
+        }
     }
 }
