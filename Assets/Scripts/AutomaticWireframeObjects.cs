@@ -10,6 +10,9 @@ public class AutomaticWireframeObjects : MonoBehaviour
     [Header("Should we override existing wireframe objects from children?")]
     [SerializeField] bool overrideExistingObjects;
 
+    [Header("Should we delete materials?")]
+    [SerializeField] bool deleteMaterials;
+
     void Start()
     {
         if (WireframeRenderer.Instance)
@@ -26,6 +29,15 @@ public class AutomaticWireframeObjects : MonoBehaviour
                 else if (overrideExistingObjects)
                 {
                     wireFrameObject.UpdateProperties(edgeAngleLimit);
+                }
+
+                if (deleteMaterials)
+                {
+                    MeshRenderer meshRenderer = meshFilter.GetComponent<MeshRenderer>();
+                    if (meshRenderer)
+                    {
+                        meshRenderer.materials = new Material[0];
+                    }
                 }
             }
         }

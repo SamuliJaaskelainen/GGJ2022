@@ -33,12 +33,11 @@ public class Wheel : MonoBehaviour
     {
         if (powered)
         {
-            wheelCollider.motorTorque = Mathf.Max(torque * powerMultiplier, 1.0f);
+            wheelCollider.motorTorque = torque * powerMultiplier;
             wheelCollider.brakeTorque = 0.0f;
             WheelFrictionCurve curve = wheelCollider.sidewaysFriction;
             curve.stiffness = normalStiffness;
             wheelCollider.sidewaysFriction = curve;
-
         }
     }
 
