@@ -4,6 +4,8 @@ using UnityEngine;
 using XInputDotNetPure;
 
 public class Ship : MonoBehaviour {
+    public float accelerationForce = 2000f;
+    public float reverseForce = 200f;
     public float brakeLeverage = 0.1f;
     public float brakeDrag = 0.3f;
     public float airTurnModifier = 0.2f;
@@ -23,6 +25,7 @@ public float debugRayScale = 0.001f;
     bool drfit;
     private bool accelerate;
     private bool brake;
+    private bool reverse;
     private float leftBrake;
     private float rightBrake;
     Rigidbody rb;
@@ -43,6 +46,7 @@ public float debugRayScale = 0.001f;
         drfit = Input.GetButton("Drift");
         accelerate = gamePadState.Buttons.A == ButtonState.Pressed;
         brake = gamePadState.Buttons.X == ButtonState.Pressed;
+        reverse = gamePadState.Buttons.B == ButtonState.Pressed;
 
 
         leftBrake = gamePadState.Triggers.Left;
@@ -82,7 +86,10 @@ public float debugRayScale = 0.001f;
 
         if (groundContact) {
             if (accelerate) {
-                AddRelativeForce(2000 * Vector3.forward, Color.green);
+                AddRelativeForce(accelerationForce * Vector3.forward, Color.green);
+            }
+            if (reverse) {
+                AddRelativeForce(-reverseForce * Vector3.forward, Color.green);
             }
             if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f) {
                 AddRelativeForce(-8000 * Vector3.forward, Color.green);
