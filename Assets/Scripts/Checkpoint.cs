@@ -9,10 +9,13 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (lapSystem == null)
+        if (other.tag == "Player")
         {
-            lapSystem = GetComponentInParent<LapSystem>();
+            if (lapSystem == null)
+            {
+                lapSystem = GetComponentInParent<LapSystem>();
+            }
+            lapSystem.HitCheckpoint(index);
         }
-        lapSystem.HitCheckpoint(index);
     }
 }

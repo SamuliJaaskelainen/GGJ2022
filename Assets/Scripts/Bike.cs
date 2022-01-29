@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Bike : MonoBehaviour
 {
-    public float maxTorque;
+    public float[] maxTorque;
+    public float boostTorque;
+    public float boostTime;
     public Transform downForce;
     public Transform cameraTarget;
+    public CinemachineVirtualCamera bikeCamera;
+    public GameObject dimension1;
+    public GameObject dimension2;
+    public WireframeRenderer wireRenderer;
     Wheel[] wheels;
     float throttle;
     float turn;
     bool drfit;
     Rigidbody rb;
+    int warps;
+    float boostTimer;
+    bool isBoosting;
 
     void Awake()
     {
         wheels = GetComponentsInChildren<Wheel>();
         rb = GetComponent<Rigidbody>();
+        dimension1.SetActive(true);
+        dimension2.SetActive(false);
     }
 
     void Update()
@@ -24,11 +36,23 @@ public class Bike : MonoBehaviour
         throttle = Input.GetAxis("Throttle");
         turn = Input.GetAxis("Turn");
         drfit = Input.GetButton("Drift");
+        isBoosting = Time.time < boostTimer;
 
         if (drfit) throttle = 0.0f;
-
         cameraTarget.localPosition = new Vector3(turn * (drfit ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
 
+        float fovTarget = isBoosting ? 80.0f : (dimension2.activeSelf ? 70.0f : 60f);
+        if (bikeCamera.m_Lens.FieldOfView > fovTarget)
+        {
+            bikeCamera.m_Lens.FieldOfView = Mathf.Lerp(bikeCamera.m_Lens.FieldOfView, fovTarget, Time.deltaTime * 3.0f);
+        }
+        else
+        {
+            bikeCamera.m_Lens.FieldOfView = Mathf.Lerp(bikeCamera.m_Lens.FieldOfView, fovTarget, Time.deltaTime * 20.0f);
+        }
+
+        wireRenderer.randomOffset -= 0.12f * Time.deltaTime;
+        wireRenderer.randomOffset = Mathf.Clamp01(wireRenderer.randomOffset);
     }
 
     void FixedUpdate()
@@ -36,7 +60,18 @@ public class Bike : MonoBehaviour
         foreach (Wheel w in wheels)
         {
             w.Steer(turn);
-            w.Accelerate(throttle * maxTorque);
+            if (isBoosting)
+            {
+                w.Accelerate(boostTorque);
+            }
+            else if (dimension2.activeSelf)
+            {
+                w.Accelerate(throttle * maxTorque[warps]);
+            }
+            else
+            {
+                w.Accelerate(throttle * maxTorque[warps]);
+            }
             w.UpdatePosition();
             if (drfit)
             {
@@ -44,8 +79,32 @@ public class Bike : MonoBehaviour
             }
         }
 
-        float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * maxTorque * 0.005f, 0.0f, 100000.0f);
+        float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * maxTorque[0] * 0.005f, 0.0f, 100000.0f);
         rb.AddForceAtPosition(Vector3.down * downVel, downForce.position, ForceMode.Force);
-        //Debug.Log(downVel);
+
+        if (dimension2.activeSelf && rb.velocity.sqrMagnitude < 1000.0f)
+        {
+            ShiftDimension();
+            warps = 0;
+        }
+    }
+
+    public void Warp()
+    {
+        boostTimer = Time.time + boostTime;
+        warps++;
+        warps = Mathf.Clamp(warps, 0, 3);
+        wireRenderer.randomOffset = 0.025f * warps;
+        if (warps >= 3)
+        {
+            ShiftDimension();
+        }
+    }
+
+    void ShiftDimension()
+    {
+        dimension1.SetActive(!dimension1.activeSelf);
+        dimension2.SetActive(!dimension2.activeSelf);
+        wireRenderer.randomOffset = 0.1f;
     }
 }
