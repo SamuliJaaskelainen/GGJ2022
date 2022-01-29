@@ -7,6 +7,7 @@ public class Wheel : MonoBehaviour
     public bool powered;
     public float maxAngle;
     public float offset;
+    [Range(0.0f, 1.0f)] public float powerMultiplier;
 
     float turnAngle;
     WheelCollider wheelCollider;
@@ -28,7 +29,7 @@ public class Wheel : MonoBehaviour
     {
         if (powered)
         {
-            wheelCollider.motorTorque = torque;
+            wheelCollider.motorTorque = torque * powerMultiplier;
         }
     }
 
