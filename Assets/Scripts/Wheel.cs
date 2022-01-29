@@ -7,16 +7,20 @@ public class Wheel : MonoBehaviour
     public bool powered;
     public float maxAngle;
     public float offset;
+    public float driftStiffness;
+    public bool driftBrake;
     [Range(0.0f, 1.0f)] public float powerMultiplier;
 
     float turnAngle;
     WheelCollider wheelCollider;
     Transform visual;
+    float normalStiffness;
 
     private void Start()
     {
         wheelCollider = GetComponentInChildren<WheelCollider>();
         visual = GetComponentInChildren<MeshFilter>().transform;
+        normalStiffness = wheelCollider.sidewaysFriction.stiffness;
     }
 
     public void Steer(float steerInput)
@@ -29,7 +33,12 @@ public class Wheel : MonoBehaviour
     {
         if (powered)
         {
-            wheelCollider.motorTorque = torque * powerMultiplier;
+            wheelCollider.motorTorque = Mathf.Max(torque * powerMultiplier, 1.0f);
+            wheelCollider.brakeTorque = 0.0f;
+            WheelFrictionCurve curve = wheelCollider.sidewaysFriction;
+            curve.stiffness = normalStiffness;
+            wheelCollider.sidewaysFriction = curve;
+
         }
     }
 
@@ -40,5 +49,17 @@ public class Wheel : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         visual.transform.position = pos;
         visual.transform.rotation = rot;
+    }
+
+    public void Drift()
+    {
+        WheelFrictionCurve curve = wheelCollider.sidewaysFriction;
+        curve.stiffness = driftStiffness;
+        wheelCollider.sidewaysFriction = curve;
+
+        if (driftBrake)
+        {
+            wheelCollider.brakeTorque = wheelCollider.motorTorque;
+        }
     }
 }

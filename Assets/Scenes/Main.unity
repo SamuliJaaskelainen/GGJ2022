@@ -198,6 +198,8 @@ MonoBehaviour:
   powered: 1
   maxAngle: 60
   offset: 0
+  driftStiffness: 5
+  driftBrake: 0
   powerMultiplier: 0.25
 --- !u!4 &396173672
 Transform:
@@ -247,6 +249,8 @@ MonoBehaviour:
   powered: 1
   maxAngle: 5
   offset: 0
+  driftStiffness: 1
+  driftBrake: 1
   powerMultiplier: 0.5
 --- !u!4 &536177347
 Transform:
@@ -454,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228684335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0.7}
+  m_LocalPosition: {x: 0, y: 0.75, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3233734985643869259}
@@ -1045,6 +1049,8 @@ MonoBehaviour:
   powered: 1
   maxAngle: 60
   offset: 0
+  driftStiffness: 5
+  driftBrake: 0
   powerMultiplier: 0.25
 --- !u!4 &1755258419
 Transform:
@@ -1465,6 +1471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTorque: 30000
   downForce: {fileID: 1228684336}
+  cameraTarget: {fileID: 2114476654}
 --- !u!54 &2858475671783350003
 Rigidbody:
   m_ObjectHideFlags: 0
