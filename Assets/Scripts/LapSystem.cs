@@ -51,9 +51,13 @@ public class LapSystem : MonoBehaviour
                 AudioManager.Instance.PlaySound("Complete", transform.position);
                 Debug.Log("Game over");
             }
-            else
+            else if (currentLap == 2)
             {
-                AudioManager.Instance.PlaySound("Lap", transform.position);
+                AudioManager.Instance.PlaySound("Lap2", transform.position);
+            }
+            else if (currentLap == 3)
+            {
+                AudioManager.Instance.PlaySound("LapFinal", transform.position);
             }
         }
     }

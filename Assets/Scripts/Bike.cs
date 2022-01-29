@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using XInputDotNetPure;
 
 public class Bike : MonoBehaviour
 {
@@ -42,9 +43,19 @@ public class Bike : MonoBehaviour
 
     void Update()
     {
+        GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+
+
         throttle = Input.GetAxis("Throttle");
+        throttle += gamePadState.Triggers.Right;
+        throttle -= gamePadState.Triggers.Left;
         turn = Input.GetAxis("Turn");
+        turn += gamePadState.ThumbSticks.Left.X;
         drift = Input.GetButton("Drift");
+        if (gamePadState.Buttons.A == ButtonState.Pressed)
+        {
+            drift = true;
+        }
         isBoosting = Time.time < boostTimer;
 
         if (drift) throttle = 0.0f;
