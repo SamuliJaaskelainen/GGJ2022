@@ -4,6 +4,7 @@ using UnityEngine;
 using XInputDotNetPure;
 
 public class Ship : MonoBehaviour {
+    public float downForce = 1f;
     public float accelerationForce = 2000f;
     public float reverseForce = 200f;
     public float brakeLeverage = 0.1f;
@@ -79,7 +80,13 @@ public float debugRayScale = 0.001f;
         // body.LookAt(body.transform.position + heading, Quaternion.AngleAxis(-bank, heading) * Vector3.up);
         Debug.DrawRay(rb.worldCenterOfMass, heading, Color.white);
         // AddRelativeForce(2000 * throttle * heading, Color.green);
-        bool groundContact = ApplyUpForce();
+        bool appliedUpForce;
+        Vector3 groundNormal;
+        bool groundContact = ApplyUpForce(out appliedUpForce, out groundNormal);
+        if (!appliedUpForce) {
+            float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * downForce, 0.0f, 100000.0f);
+            AddForce(-downVel * groundNormal, Color.black);
+        }
         Debug.DrawRay(rb.worldCenterOfMass, rb.velocity, Color.yellow);
         float turnRate = turnPower * (groundContact ? 1.0f : airTurnModifier);
         AddForceAtPosition(turnRate * rb.velocity.magnitude * bank * (Quaternion.AngleAxis(90.0f, Vector3.up) * heading), rb.worldCenterOfMass + heading, Color.cyan);
@@ -117,11 +124,14 @@ public float debugRayScale = 0.001f;
         AddForceAtPosition(-axis * brakeDrag * forwardSpeed * Mathf.Abs(forwardSpeed) * transform.forward, rb.worldCenterOfMass + leverage * transform.right, Color.magenta);
     }
 
-    private bool ApplyUpForce() {
+    private bool ApplyUpForce(out bool appliedForce, out Vector3 groundNormal) {
+        appliedForce = false;
+        groundNormal = Vector3.up;
         RaycastHit hitInfo;
         if (!Physics.Raycast(transform.position, -transform.up, out hitInfo, targetHeight + 1.0f, excludeShipLayerMask)) {
             return false;
         }
+        groundNormal = hitInfo.normal;
         float distToGo = targetHeight - hitInfo.distance;
         if (distToGo < 0.0f) {
             // AddForce(-(1.0f + distToGo) * Physics.gravity, Color.red);
@@ -136,6 +146,8 @@ public float debugRayScale = 0.001f;
         // Debug.Log(velocity + gravityComponent );
         if (!overshoot) {
             AddForce(upForce * Physics.gravity.magnitude * rb.mass * transform.up, Color.red);
+            appliedForce = true;
+        } else {
         }
         return true;
     }

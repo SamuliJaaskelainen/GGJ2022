@@ -9528,6 +9528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269e458c557e19e4eb16e9541bf580b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  downForce: 0.01
   accelerationForce: 2000
   reverseForce: 500
   brakeLeverage: 0.3
