@@ -17,11 +17,17 @@ public class WireframeRenderer : MonoBehaviour
         Triangle,
         Skinned
     }
+    public enum RenderDeviceType
+    {
+        Audio,
+        Screen,
+        Gfx
+    }
 
     public static WireframeRenderer Instance;
 
     [Header("Use oscilloscope emulator instead of real oscilloscope.")]
-    [SerializeField] private bool useEmulator = false;
+    [SerializeField] private RenderDeviceType renderDeviceType = RenderDeviceType.Audio;
     [Header("Camera to render lines from. Use square aspect ratio.")]
     [SerializeField] private Camera renderCamera;
     [Header("X scale of the rendering. (no effect in emulator)")]
@@ -625,14 +631,13 @@ public class WireframeRenderer : MonoBehaviour
         for (int i = 0; i < args.Length; i++)
         {
             Debug.Log("ARG" + i + ": " + args[i]);
-            if (args[i] == "-screenRender")
-            {
-                useEmulator = true;
+            if (args[i] == "-screenRender") {
+                renderDeviceType = RenderDeviceType.Screen;
                 Debug.Log("Use screen render");
             }
             if (args[i] == "-audioRender")
             {
-                useEmulator = false;
+                renderDeviceType = RenderDeviceType.Audio;
                 Debug.Log("Use audio render");
             }
             if (args[i] == "-scaleX")
@@ -659,17 +664,21 @@ public class WireframeRenderer : MonoBehaviour
             }
         }
 
-        if (useEmulator)
+        if (renderDeviceType == RenderDeviceType.Screen)
         {
             Debug.Log("Initializing ScreenRenderDevice");
             renderDevice = new AudioRender.ScreenRenderDevice(Application.streamingAssetsPath + "/ScopeBackground.jpg", true, true);
             Debug.Log("ScreenRenderDevice initialized");
         }
-        else
+        else if(renderDeviceType == RenderDeviceType.Audio)
         {
             Debug.Log("Initializing AudioRenderDevice");
             renderDevice = new AudioRender.AudioRenderDevice(new Vector2(scaleX, scaleY));
             Debug.Log("AudioRenderDevice initialized");
+        } else {
+            Debug.Log("Initializing GfxRenderDevice");
+            renderDevice = GetComponent<AudioRender.GfxRenderDevice>();
+            Debug.Log("GfxRenderDevice initialized");
         }
 
         int maxTriangles = 40000;
