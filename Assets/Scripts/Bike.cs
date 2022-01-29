@@ -8,6 +8,7 @@ public class Bike : MonoBehaviour
     public AudioSource driveAudio;
     public AudioSource boostAudio;
     public AudioSource driftAudio;
+    public AudioClip[] driveClips;
     public float[] maxTorque;
     public float boostTorque;
     public float boostTime;
@@ -33,13 +34,10 @@ public class Bike : MonoBehaviour
         dimension1.SetActive(true);
         dimension2.SetActive(false);
 
-        AudioManager.Instance.SetMusicLayer(1, false);
         AudioManager.Instance.SetMusicLayer(2, false);
         AudioManager.Instance.SetMusicLayer(3, false);
         AudioManager.Instance.SetMusicLayer(4, false);
         AudioManager.Instance.SetMusicLayer(5, false);
-        AudioManager.Instance.SetMusicLayer(6, false);
-        AudioManager.Instance.SetMusicLayer(7, false);
     }
 
     void Update()
@@ -124,7 +122,24 @@ public class Bike : MonoBehaviour
         if (dimension2.activeSelf && rb.velocity.sqrMagnitude < 1000.0f)
         {
             ShiftDimension();
+            AudioManager.Instance.SetMusicLayer(2, false);
+            AudioManager.Instance.SetMusicLayer(3, false);
+            AudioManager.Instance.SetMusicLayer(4, false);
+            AudioManager.Instance.SetMusicLayer(5, false);
             warps = 0;
+        }
+
+        if (rb.velocity.sqrMagnitude < 800.0f)
+        {
+            driveAudio.clip = driveClips[0];
+        }
+        else if (rb.velocity.sqrMagnitude < 4000.0f)
+        {
+            driveAudio.clip = driveClips[1];
+        }
+        else
+        {
+            driveAudio.clip = driveClips[2];
         }
     }
 
@@ -138,6 +153,22 @@ public class Bike : MonoBehaviour
         if (warps >= 3)
         {
             ShiftDimension();
+        }
+
+        if (warps == 1)
+        {
+            AudioManager.Instance.SetMusicLayer(2, true);
+        }
+        else if (warps == 2)
+        {
+            AudioManager.Instance.SetMusicLayer(2, false);
+            AudioManager.Instance.SetMusicLayer(3, true);
+        }
+        else
+        {
+            AudioManager.Instance.SetMusicLayer(3, false);
+            AudioManager.Instance.SetMusicLayer(4, true);
+            AudioManager.Instance.SetMusicLayer(5, true);
         }
     }
 
