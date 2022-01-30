@@ -531,7 +531,7 @@ MonoBehaviour:
   reverseForce: 200
   brakeLeverage: 6
   brakeDrag: 0.02
-  brakeForce: 8000
+  brakeForce: 800
   airTurnModifier: 0.15
   upForce: 3
   forwardDrags:
