@@ -9,7 +9,7 @@ public class LapSystem : MonoBehaviour
     public SimpleHelvetica timeText;
     public GameObject timeCamera;
     public AutomaticWireframeObjects timeWire;
-    public Bike bike;
+    public Ship ship;
     public Checkpoint[] checkpoints;
     public int lapCount = 2;
     public int currentLap = 1;
@@ -47,7 +47,7 @@ public class LapSystem : MonoBehaviour
                 timeText.GenerateText();
                 timeWire.enabled = true;
                 timeCamera.SetActive(true);
-                bike.enabled = false;
+                ship.enabled = false;
                 AudioManager.Instance.PlaySound("Complete", transform.position);
                 Debug.Log("Game over");
             }
@@ -72,6 +72,7 @@ public class LapSystem : MonoBehaviour
         GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
         if (Input.GetButton("Restart") || gamePadState.Buttons.Y == ButtonState.Pressed)
         {
+            Debug.Log("Reset race");
             UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
     }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
-public class Ship : MonoBehaviour {
+public class Ship : MonoBehaviour
+{
     [Header("Multiplier for down force")]
     public float downForce = 1f;
 
@@ -52,6 +53,10 @@ public class Ship : MonoBehaviour {
     [Header("Scale of editor debug rays")]
     public float debugRayScale = 0.01f;
 
+    [Header("Camera target movement when turning")]
+    public float cameraOffset = 1.0f;
+    public float cameraOffsetOnDrift = 1.5f;
+
     public Transform cameraTarget;
     public Transform body;
     float throttle;
@@ -93,21 +98,24 @@ public class Ship : MonoBehaviour {
 
         // transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * -turn * maxBankAngle);
 
-        cameraTarget.localPosition = new Vector3(turn * (drfit ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        cameraTarget.localPosition = new Vector3(turn * (drfit ? cameraOffsetOnDrift : cameraOffset), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
         // cameraTarget.forward = GetHeading();
 
     }
 
-    Vector3 GetHeading() {
+    Vector3 GetHeading()
+    {
         Vector3 dir = transform.forward + rb.velocity.normalized;
         dir.y = 0;
-        if (dir.sqrMagnitude < Mathf.Epsilon) {
+        if (dir.sqrMagnitude < Mathf.Epsilon)
+        {
             return transform.forward;
         }
         return dir.normalized;
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         Vector3 heading = transform.forward;
 
         bank = Mathf.MoveTowardsAngle(bank, maxBankAngle * turn, Time.fixedDeltaTime * bankRate);
@@ -117,7 +125,8 @@ public class Ship : MonoBehaviour {
         bool appliedUpForce;
         Vector3 groundNormal;
         bool groundContact = ApplyUpForce(out appliedUpForce, out groundNormal);
-        if (!appliedUpForce) {
+        if (!appliedUpForce)
+        {
             float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * downForce, 0.0f, 100000.0f);
             AddForce(-downVel * groundNormal, Color.black);
         }
@@ -125,14 +134,18 @@ public class Ship : MonoBehaviour {
         float turnRate = turnPower * (groundContact ? 1.0f : airTurnModifier);
         AddForceAtPosition(turnRate * rb.velocity.magnitude * bank * (Quaternion.AngleAxis(90.0f, Vector3.up) * heading), rb.worldCenterOfMass + heading, Color.cyan);
 
-        if (groundContact) {
-            if (accelerate) {
+        if (groundContact)
+        {
+            if (accelerate)
+            {
                 AddRelativeForce(accelerationForce * Vector3.forward, Color.green);
             }
-            if (reverse) {
+            if (reverse)
+            {
                 AddRelativeForce(-reverseForce * Vector3.forward, Color.green);
             }
-            if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f) {
+            if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f)
+            {
                 AddRelativeForce(-brakeForce * Vector3.forward, Color.green);
             }
         }
@@ -145,7 +158,8 @@ public class Ship : MonoBehaviour {
         //Debug.Log(downVel);
     }
 
-    private void ApplyDrag(bool groundContact) {
+    private void ApplyDrag(bool groundContact)
+    {
         float mod = groundContact ? 1.0f : airDragModifier;
         float forwardSpeed = Vector3.Dot(transform.forward, rb.velocity);
         float rightSpeed = Vector3.Dot(transform.right, rb.velocity);
@@ -153,21 +167,25 @@ public class Ship : MonoBehaviour {
         AddForce(-mod * sideDrag * rightSpeed * Mathf.Abs(rightSpeed) * transform.right, Color.magenta);
     }
 
-    private void ApplyBrake(float axis, float leverage) {
+    private void ApplyBrake(float axis, float leverage)
+    {
         float forwardSpeed = Vector3.Dot(transform.forward, rb.velocity);
         AddForceAtPosition(-axis * brakeDrag * forwardSpeed * Mathf.Abs(forwardSpeed) * transform.forward, rb.worldCenterOfMass + leverage * transform.right, Color.magenta);
     }
 
-    private bool ApplyUpForce(out bool appliedForce, out Vector3 groundNormal) {
+    private bool ApplyUpForce(out bool appliedForce, out Vector3 groundNormal)
+    {
         appliedForce = false;
         groundNormal = Vector3.up;
         RaycastHit hitInfo;
-        if (!Physics.Raycast(transform.position, -transform.up, out hitInfo, targetHeight + 1.0f, excludeShipLayerMask)) {
+        if (!Physics.Raycast(transform.position, -transform.up, out hitInfo, targetHeight + 1.0f, excludeShipLayerMask))
+        {
             return false;
         }
         groundNormal = hitInfo.normal;
         float distToGo = targetHeight - hitInfo.distance;
-        if (distToGo < 0.0f) {
+        if (distToGo < 0.0f)
+        {
             // AddForce(-(1.0f + distToGo) * Physics.gravity, Color.red);
             return true;
         }
@@ -178,21 +196,27 @@ public class Ship : MonoBehaviour {
 
         bool overshoot = time > 0.0f && velocity + gravityComponent > 0.0f;
         // Debug.Log(velocity + gravityComponent );
-        if (!overshoot) {
+        if (!overshoot)
+        {
             AddForce(upForce * Physics.gravity.magnitude * rb.mass * transform.up, Color.red);
             appliedForce = true;
-        } else {
+        }
+        else
+        {
         }
         return true;
     }
 
-    private void AddRelativeForce(Vector3 force, Color color) {
+    private void AddRelativeForce(Vector3 force, Color color)
+    {
         AddForce(transform.TransformDirection(force), color);
     }
-    private void AddForce(Vector3 force, Color color) {
+    private void AddForce(Vector3 force, Color color)
+    {
         AddForceAtPosition(force, rb.worldCenterOfMass, color);
     }
-    private void AddForceAtPosition(Vector3 force, Vector3 position, Color color) {
+    private void AddForceAtPosition(Vector3 force, Vector3 position, Color color)
+    {
         Debug.DrawRay(position, debugRayScale * force, color);
         rb.AddForceAtPosition(force, position, ForceMode.Force);
     }
