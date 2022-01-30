@@ -438,10 +438,21 @@ public class Ship : MonoBehaviour
         idleBody.localPosition = 0.01f * new Vector3(xSway, ySway, zSway);
         idleBody.localRotation = Quaternion.Euler(pitchSway, yawSway, rollSway);
 
+        float rollControl = 0.5f * turn + 0.5f * (rightBrake - leftBrake);
+        rollVisual = Mathf.MoveTowards(rollVisual, rollControl, Time.deltaTime / 0.25f);
+        // Debug.LogFormat("wtf {0} {1}", rollVisual, Time.deltaTime / 0.5f);
+        float smoothRoll;
+        if (rollVisual < 0.0f) {
+            smoothRoll = Mathf.SmoothStep(0.0f, -1.0f, -rollVisual);
+        } else {
+            smoothRoll = Mathf.SmoothStep(0.0f, 1.0f, rollVisual);
+        }
         float tilt = Mathf.Clamp(Vector3.Dot(transform.forward, rb.velocity) * 0.01f, -1.0f, 1.0f);
-        float roll = Mathf.Clamp(rb.angularVelocity.y / 120.0f + rb.velocity.x * 0.1f, -1.0f, 1.0f);
+        // float roll = Mathf.Clamp(rb.angularVelocity.y * Mathf.Rad2Deg / 120.0f, -1.0f, 1.0f);
 
-        accBody.localRotation = Quaternion.Euler(-25.0f * tilt, 0, 25.0f * roll);
+        // Debug.LogFormat("{0} {1} {2}", rollControl, rollVisual, smoothRoll);
+        accBody.localRotation = Quaternion.Euler(-20.0f * tilt, -40.0f * rollVisual, 0.0f);
     }
 
+    private float rollVisual;
 }
