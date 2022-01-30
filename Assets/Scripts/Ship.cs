@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -58,8 +59,12 @@ public class Ship : MonoBehaviour {
 
     public float yawHalfSpeed = 50.0f;
 
+    public float visualRotationRate = 15.0f;
+
     public Transform cameraTarget;
     public Transform body;
+    public Transform idleBody;
+    public Transform accBody;
     float throttle;
     float turn;
     private float bank;
@@ -72,6 +77,7 @@ public class Ship : MonoBehaviour {
     private float yawRate;
     Rigidbody rb;
     private int excludeShipLayerMask;
+    private Vector3 groundNormal;
 
     void Awake()
     {
@@ -101,6 +107,7 @@ public class Ship : MonoBehaviour {
         // transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * -turn * maxBankAngle);
 
         cameraTarget.localPosition = new Vector3(turn * (drfit ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        ApplyVisuals();
         // cameraTarget.forward = GetHeading();
 
     }
@@ -122,7 +129,6 @@ public class Ship : MonoBehaviour {
         Debug.DrawRay(rb.worldCenterOfMass, heading, Color.white);
         // AddRelativeForce(2000 * throttle * heading, Color.green);
         bool appliedUpForce;
-        Vector3 groundNormal;
         bool groundContact = ApplyUpForce(out appliedUpForce, out groundNormal);
         if (!appliedUpForce) {
             float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * downForce, 0.0f, 100000.0f);
@@ -220,6 +226,44 @@ public class Ship : MonoBehaviour {
     private void AddForceAtPosition(Vector3 force, Vector3 position, Color color) {
         Debug.DrawRay(position, debugRayScale * force, color);
         rb.AddForceAtPosition(force, position, ForceMode.Force);
+    }
+
+    private void ApplyVisuals() {
+        // rotate around local X to match local Y with normal's projection to local YZ plane
+        // rotate around local Z to match normal
+        // local roll to match normal
+
+
+
+        Quaternion toGo = Quaternion.FromToRotation(body.up, groundNormal);
+        Quaternion targetLocalRotation = body.localRotation * toGo;
+        // body.localRotation = Quaternion.RotateTowards(body.localRotation, targetLocalRotation, 60.0f * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.LookRotation(groundNormal, transform.forward);
+        body.rotation = Quaternion.RotateTowards(body.rotation, targetRotation, visualRotationRate * Time.deltaTime);
+
+        // transform.rotation = Quaternion.FromToRotation(Vector3.up, groundNormal);
+
+        // Quaternion.RotateTowards()
+        // Vector3 rotationAxis = Vector3.Cross(groundNormal, body.forward);
+        // float angleToGo = Vector3.SignedAngle(body.forward, groundNormal, rotationAxis) - 90.0f;
+        // body.forward, gr
+
+        // Quaternion.RotateTowards()
+        // body.LookAt();
+        float speedLoss = 1.0f + rb.velocity.magnitude / yawHalfSpeed;
+        float yawSway = 1.4f * Mathf.Cos(0.4f * Time.time * Mathf.PI) / speedLoss;
+        float pitchSway = 2.0f * Mathf.Cos(1.0f + 1.0f * Time.time * Mathf.PI) / speedLoss;
+        float rollSway = 1.3f * Mathf.Cos(2.3f + 1.6f * Time.time * Mathf.PI) / speedLoss;
+        float xSway = 1.4f * Mathf.Cos(0.8f * Time.time * Mathf.PI) / speedLoss;
+        float ySway = 2.0f * Mathf.Cos(0.97f + 1.0f * Time.time * Mathf.PI) / speedLoss;
+        float zSway = 1.3f * Mathf.Cos(1.04f + 1.6f * Time.time * Mathf.PI) / speedLoss;
+        idleBody.localPosition = 0.01f * new Vector3(xSway, ySway, zSway);
+        idleBody.localRotation = Quaternion.Euler(pitchSway, yawSway, rollSway);
+
+        float tilt = Mathf.Clamp(Vector3.Dot(transform.forward, rb.velocity) * 0.01f, -1.0f, 1.0f);
+        float roll = Mathf.Clamp(rb.angularVelocity.y / 120.0f + rb.velocity.x * 0.1f, -1.0f, 1.0f);
+
+        accBody.localRotation = Quaternion.Euler(-25.0f * tilt, 0, 25.0f * roll);
     }
 
 }
