@@ -349,7 +349,7 @@ public class Ship : MonoBehaviour
         {
             return;
         }
-        Debug.LogFormat("Speed {0}", rb.velocity.magnitude);
+        //Debug.LogFormat("Speed {0}", rb.velocity.magnitude);
 
         yawRate = Mathf.MoveTowards(yawRate, turn, Time.fixedDeltaTime / yawDelay);
         float yaw;
