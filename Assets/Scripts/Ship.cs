@@ -126,12 +126,35 @@ public class Ship : MonoBehaviour
         GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
 
         turn = gamePadState.ThumbSticks.Left.X;
+        turn += Input.GetAxis("Turn");
         accelerate = gamePadState.Buttons.A == ButtonState.Pressed;
         brake = gamePadState.Buttons.X == ButtonState.Pressed;
         reverse = gamePadState.Buttons.B == ButtonState.Pressed;
 
+        if (Input.GetButton("Accelerate"))
+        {
+            accelerate = true;
+        }
+        if (Input.GetButton("Brake"))
+        {
+            brake = true;
+        }
+        if (Input.GetButton("Reverse"))
+        {
+            reverse = true;
+        }
+
         leftBrake = gamePadState.Triggers.Left;
         rightBrake = gamePadState.Triggers.Right;
+
+        if (Input.GetButton("LeftBrake"))
+        {
+            leftBrake = 1.0f;
+        }
+        if (Input.GetButton("RightBrake"))
+        {
+            rightBrake = 1.0f;
+        }
 
         isBoosting = Time.time < boostTimer;
         isDrifting = (leftBrake > 0.3f || rightBrake > 0.3f);
@@ -442,9 +465,12 @@ public class Ship : MonoBehaviour
         rollVisual = Mathf.MoveTowards(rollVisual, rollControl, Time.deltaTime / 0.25f);
         // Debug.LogFormat("wtf {0} {1}", rollVisual, Time.deltaTime / 0.5f);
         float smoothRoll;
-        if (rollVisual < 0.0f) {
+        if (rollVisual < 0.0f)
+        {
             smoothRoll = Mathf.SmoothStep(0.0f, -1.0f, -rollVisual);
-        } else {
+        }
+        else
+        {
             smoothRoll = Mathf.SmoothStep(0.0f, 1.0f, rollVisual);
         }
         float tilt = Mathf.Clamp(Vector3.Dot(transform.forward, rb.velocity) * 0.01f, -1.0f, 1.0f);
