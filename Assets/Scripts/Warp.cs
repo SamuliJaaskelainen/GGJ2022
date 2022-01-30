@@ -20,7 +20,7 @@ public class Warp : MonoBehaviour
         if (other.tag == "Player" && Time.time > respawnTimer)
         {
             respawnTimer = Time.time + respawnTime;
-            other.transform.parent.GetComponent<Bike>().Warp();
+            other.transform.parent.GetComponent<Ship>().Warp();
             sphereCollider.enabled = false;
         }
     }

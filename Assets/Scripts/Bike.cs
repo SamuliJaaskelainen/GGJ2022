@@ -73,20 +73,10 @@ public class Bike : MonoBehaviour
         wireRenderer.randomOffset -= 0.12f * Time.deltaTime;
         wireRenderer.randomOffset = Mathf.Clamp01(wireRenderer.randomOffset);
 
-        if (isBoosting)
-        {
-            if (!boostAudio.isPlaying)
-            {
-                boostAudio.Play();
-                driftAudio.Pause();
-                driveAudio.Pause();
-            }
-        }
-        else if (drift)
+        if (drift)
         {
             if (!driftAudio.isPlaying)
             {
-                boostAudio.Pause();
                 driftAudio.Play();
                 driveAudio.Pause();
             }
@@ -95,7 +85,6 @@ public class Bike : MonoBehaviour
         {
             if (!driveAudio.isPlaying)
             {
-                boostAudio.Pause();
                 driftAudio.Pause();
                 driveAudio.Play();
             }
@@ -156,6 +145,7 @@ public class Bike : MonoBehaviour
     public void Warp()
     {
         AudioManager.Instance.PlaySound("WarpEnter", transform.position);
+        AudioManager.Instance.PlaySound("WarpBoost", transform.position);
         boostTimer = Time.time + boostTime;
         warps++;
         warps = Mathf.Clamp(warps, 0, 3);

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using XInputDotNetPure;
+using Cinemachine;
 
-public class Ship : MonoBehaviour {
+public class Ship : MonoBehaviour
+{
     [Header("Multiplier for down force")]
     public float downForce = 1f;
 
@@ -29,8 +31,12 @@ public class Ship : MonoBehaviour {
     [Header("Hover force strength relative to gravity")]
     public float upForce = 3.0f;
 
+    [Header("Air resistance on Z axis")] // 0.06
+    public float[] forwardDrags;
+    float forwardDrag;
+
     [Header("Air resistance on Z axis")]
-    public float forwardDrag = 0.015f;
+    public float boostDrag;
 
     [Header("Air resistance on X axis")]
     public float sideDrag = 0.2f;
@@ -61,14 +67,33 @@ public class Ship : MonoBehaviour {
 
     public float visualRotationRate = 15.0f;
 
+    public float normalCameraOffset = 15.0f;
+
+    public float driftCameraOffset = 15.0f;
+
+
+    public AudioSource driveAudio;
+    public AudioSource boostAudio;
+    public AudioSource driftAudio;
+    public AudioClip[] driveClips;
+    public float boostTime;
+
+    public CinemachineVirtualCamera bikeCamera;
+    public GameObject dimension1;
+    public GameObject dimension2;
+    public WireframeRenderer wireRenderer;
+    public float dimensionMinVelocity = 3000.0f;
+
+    int warps;
+    float boostTimer;
+    bool isBoosting;
+    bool isDrifting;
     public Transform cameraTarget;
     public Transform body;
     public Transform idleBody;
     public Transform accBody;
-    float throttle;
     float turn;
     private float bank;
-    bool drfit;
     private bool accelerate;
     private bool brake;
     private bool reverse;
@@ -83,46 +108,109 @@ public class Ship : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         excludeShipLayerMask = ~(1 << gameObject.layer);
+
+        dimension1.SetActive(true);
+        dimension2.SetActive(false);
+    }
+
+    void Start()
+    {
+        AudioManager.Instance.SetMusicLayer(2, false);
+        AudioManager.Instance.SetMusicLayer(3, false);
+        AudioManager.Instance.SetMusicLayer(4, false);
+        AudioManager.Instance.SetMusicLayer(5, false);
     }
 
     void Update()
     {
         GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
 
-        throttle = Input.GetAxis("Throttle");
         turn = gamePadState.ThumbSticks.Left.X;
-        drfit = Input.GetButton("Drift");
         accelerate = gamePadState.Buttons.A == ButtonState.Pressed;
         brake = gamePadState.Buttons.X == ButtonState.Pressed;
         reverse = gamePadState.Buttons.B == ButtonState.Pressed;
 
-
         leftBrake = gamePadState.Triggers.Left;
         rightBrake = gamePadState.Triggers.Right;
 
-        Debug.LogFormat("{0} {1}", leftBrake, rightBrake);
+        isBoosting = Time.time < boostTimer;
+        isDrifting = (leftBrake > 0.3f || rightBrake > 0.3f);
 
-        if (drfit) throttle = 0.0f;
-
+        //Debug.LogFormat("{0} {1}", leftBrake, rightBrake);
         // transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * -turn * maxBankAngle);
 
-        cameraTarget.localPosition = new Vector3(turn * (drfit ? 2.5f : 2.0f), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+        cameraTarget.localPosition = new Vector3(turn * (isDrifting ? driftCameraOffset : normalCameraOffset), cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+
+        float fovTarget = isBoosting ? 80.0f : (dimension2.activeSelf ? 70.0f : 60f);
+        if (bikeCamera.m_Lens.FieldOfView > fovTarget)
+        {
+            bikeCamera.m_Lens.FieldOfView = Mathf.Lerp(bikeCamera.m_Lens.FieldOfView, fovTarget, Time.deltaTime * 3.0f);
+        }
+        else
+        {
+            bikeCamera.m_Lens.FieldOfView = Mathf.Lerp(bikeCamera.m_Lens.FieldOfView, fovTarget, Time.deltaTime * 20.0f);
+        }
+
+        wireRenderer.randomOffset -= 0.12f * Time.deltaTime;
+        wireRenderer.randomOffset = Mathf.Clamp01(wireRenderer.randomOffset);
+
+        if (isBoosting)
+        {
+            if (!boostAudio.isPlaying)
+            {
+                boostAudio.Play();
+                driftAudio.Pause();
+                driveAudio.Pause();
+            }
+        }
+        else if (isDrifting)
+        {
+            if (!driftAudio.isPlaying)
+            {
+                boostAudio.Pause();
+                driftAudio.Play();
+                driveAudio.Pause();
+            }
+        }
+        else
+        {
+            if (!driveAudio.isPlaying)
+            {
+                boostAudio.Pause();
+                driftAudio.Pause();
+                driveAudio.Play();
+            }
+        }
+
         ApplyVisuals();
         // cameraTarget.forward = GetHeading();
-
     }
 
-    Vector3 GetHeading() {
+    Vector3 GetHeading()
+    {
         Vector3 dir = transform.forward + rb.velocity.normalized;
         dir.y = 0;
-        if (dir.sqrMagnitude < Mathf.Epsilon) {
+        if (dir.sqrMagnitude < Mathf.Epsilon)
+        {
             return transform.forward;
         }
         return dir.normalized;
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         Vector3 heading = transform.forward;
+
+        if (isBoosting)
+        {
+            forwardDrag = boostDrag;
+            accelerate = true;
+        }
+        else
+        {
+            forwardDrag = forwardDrags[warps];
+        }
+
 
         bank = Mathf.MoveTowardsAngle(bank, maxBankAngle * turn, Time.fixedDeltaTime * bankRate);
         // body.LookAt(body.transform.position + heading, Quaternion.AngleAxis(-bank, heading) * Vector3.up);
@@ -130,7 +218,8 @@ public class Ship : MonoBehaviour {
         // AddRelativeForce(2000 * throttle * heading, Color.green);
         bool appliedUpForce;
         bool groundContact = ApplyUpForce(out appliedUpForce, out groundNormal);
-        if (!appliedUpForce) {
+        if (!appliedUpForce)
+        {
             float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * downForce, 0.0f, 100000.0f);
             AddForce(-downVel * groundNormal, Color.black);
         }
@@ -138,14 +227,18 @@ public class Ship : MonoBehaviour {
         float turnRate = turnPower * (groundContact ? 1.0f : airTurnModifier);
         AddForceAtPosition(turnRate * rb.velocity.magnitude * bank * (Quaternion.AngleAxis(90.0f, Vector3.up) * heading), rb.worldCenterOfMass + heading, Color.cyan);
 
-        if (groundContact) {
-            if (accelerate) {
+        if (groundContact)
+        {
+            if (accelerate)
+            {
                 AddRelativeForce(accelerationForce * Vector3.forward, Color.green);
             }
-            if (reverse) {
+            if (reverse)
+            {
                 AddRelativeForce(-reverseForce * Vector3.forward, Color.green);
             }
-            if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f) {
+            if (brake && Vector3.Dot(transform.forward, rb.velocity) > 0.0f)
+            {
                 AddRelativeForce(-brakeForce * Vector3.forward, Color.green);
             }
         }
@@ -157,26 +250,100 @@ public class Ship : MonoBehaviour {
         // float downVel = Mathf.Clamp(rb.velocity.sqrMagnitude * maxTorque * 0.005f, 0.0f, 100000.0f);
         // rb.AddForceAtPosition(Vector3.down * downVel, downForce.position, ForceMode.Force);
         //Debug.Log(downVel);
+
+        if (dimension2.activeSelf && rb.velocity.sqrMagnitude < dimensionMinVelocity)
+        {
+            ShiftDimension();
+            AudioManager.Instance.SetMusicLayer(2, false);
+            AudioManager.Instance.SetMusicLayer(3, false);
+            AudioManager.Instance.SetMusicLayer(4, false);
+            AudioManager.Instance.SetMusicLayer(5, false);
+            warps = 0;
+        }
+
+        if (rb.velocity.sqrMagnitude < 3000.0f)
+        {
+            driveAudio.clip = driveClips[0];
+        }
+        else if (rb.velocity.sqrMagnitude < 8000.0f)
+        {
+            driveAudio.clip = driveClips[1];
+        }
+        else
+        {
+            driveAudio.clip = driveClips[2];
+        }
     }
 
-    private void ApplyYaw(bool groundContact) {
-        if (!groundContact) {
+    public void Warp()
+    {
+        AudioManager.Instance.PlaySound("WarpEnter", transform.position);
+        boostTimer = Time.time + boostTime;
+        warps++;
+        warps = Mathf.Clamp(warps, 0, 3);
+        wireRenderer.randomOffset = 0.025f * warps;
+        if (warps >= 3)
+        {
+            ShiftDimension();
+        }
+
+        if (warps == 1)
+        {
+            AudioManager.Instance.SetMusicLayer(2, true);
+        }
+        else if (warps == 2)
+        {
+            AudioManager.Instance.SetMusicLayer(2, false);
+            AudioManager.Instance.SetMusicLayer(3, true);
+        }
+        else
+        {
+            AudioManager.Instance.SetMusicLayer(3, false);
+            AudioManager.Instance.SetMusicLayer(4, true);
+            AudioManager.Instance.SetMusicLayer(5, true);
+        }
+    }
+
+    void ShiftDimension()
+    {
+        dimension1.SetActive(!dimension1.activeSelf);
+        dimension2.SetActive(!dimension2.activeSelf);
+        wireRenderer.randomOffset = 0.1f;
+
+        if (dimension1.activeSelf)
+        {
+            AudioManager.Instance.PlaySound("DimensionShiftTo1", transform.position);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySound("DimensionShiftTo2", transform.position);
+        }
+    }
+
+    private void ApplyYaw(bool groundContact)
+    {
+        if (!groundContact)
+        {
             return;
         }
         Debug.LogFormat("Speed {0}", rb.velocity.magnitude);
 
         yawRate = Mathf.MoveTowards(yawRate, turn, Time.fixedDeltaTime / yawDelay);
         float yaw;
-        if (yawRate < 0.0f) {
+        if (yawRate < 0.0f)
+        {
             yaw = Mathf.SmoothStep(0.0f, -1.0f, -yawRate);
-        } else {
+        }
+        else
+        {
             yaw = Mathf.SmoothStep(0.0f, 1.0f, yawRate);
         }
         float speedLoss = 1.0f + rb.velocity.magnitude * rb.velocity.magnitude / Mathf.Pow(yawHalfSpeed, 2.0f);
         rb.MoveRotation(Quaternion.AngleAxis(yaw * Time.fixedDeltaTime * yawSpeed / speedLoss, transform.up) * rb.rotation);
     }
 
-    private void ApplyDrag(bool groundContact) {
+    private void ApplyDrag(bool groundContact)
+    {
         float mod = groundContact ? 1.0f : airDragModifier;
         float forwardSpeed = Vector3.Dot(transform.forward, rb.velocity);
         float rightSpeed = Vector3.Dot(transform.right, rb.velocity);
@@ -184,21 +351,25 @@ public class Ship : MonoBehaviour {
         AddForce(-mod * sideDrag * rightSpeed * Mathf.Abs(rightSpeed) * transform.right, Color.magenta);
     }
 
-    private void ApplyBrake(float axis, float leverage) {
+    private void ApplyBrake(float axis, float leverage)
+    {
         float forwardSpeed = Vector3.Dot(transform.forward, rb.velocity);
         AddForceAtPosition(-axis * brakeDrag * forwardSpeed * Mathf.Abs(forwardSpeed) * transform.forward, rb.worldCenterOfMass + leverage * transform.right, Color.magenta);
     }
 
-    private bool ApplyUpForce(out bool appliedForce, out Vector3 groundNormal) {
+    private bool ApplyUpForce(out bool appliedForce, out Vector3 groundNormal)
+    {
         appliedForce = false;
         groundNormal = Vector3.up;
         RaycastHit hitInfo;
-        if (!Physics.Raycast(transform.position, -transform.up, out hitInfo, targetHeight + 1.0f, excludeShipLayerMask)) {
+        if (!Physics.Raycast(transform.position, -transform.up, out hitInfo, targetHeight + 1.0f, excludeShipLayerMask))
+        {
             return false;
         }
         groundNormal = hitInfo.normal;
         float distToGo = targetHeight - hitInfo.distance;
-        if (distToGo < 0.0f) {
+        if (distToGo < 0.0f)
+        {
             // AddForce(-(1.0f + distToGo) * Physics.gravity, Color.red);
             return true;
         }
@@ -209,26 +380,33 @@ public class Ship : MonoBehaviour {
 
         bool overshoot = time > 0.0f && velocity + gravityComponent > 0.0f;
         // Debug.Log(velocity + gravityComponent );
-        if (!overshoot) {
+        if (!overshoot)
+        {
             AddForce(upForce * Physics.gravity.magnitude * rb.mass * transform.up, Color.red);
             appliedForce = true;
-        } else {
+        }
+        else
+        {
         }
         return true;
     }
 
-    private void AddRelativeForce(Vector3 force, Color color) {
+    private void AddRelativeForce(Vector3 force, Color color)
+    {
         AddForce(transform.TransformDirection(force), color);
     }
-    private void AddForce(Vector3 force, Color color) {
+    private void AddForce(Vector3 force, Color color)
+    {
         AddForceAtPosition(force, rb.worldCenterOfMass, color);
     }
-    private void AddForceAtPosition(Vector3 force, Vector3 position, Color color) {
+    private void AddForceAtPosition(Vector3 force, Vector3 position, Color color)
+    {
         Debug.DrawRay(position, debugRayScale * force, color);
         rb.AddForceAtPosition(force, position, ForceMode.Force);
     }
 
-    private void ApplyVisuals() {
+    private void ApplyVisuals()
+    {
         // rotate around local X to match local Y with normal's projection to local YZ plane
         // rotate around local Z to match normal
         // local roll to match normal
