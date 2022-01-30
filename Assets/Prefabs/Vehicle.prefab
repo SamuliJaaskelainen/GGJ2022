@@ -81,19 +81,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downForce: 0.01
-  accelerationForce: 2000
-  reverseForce: 500
-  brakeLeverage: 0.3
-  brakeDrag: 0.1
+  accelerationForce: 350
+  reverseForce: 200
+  brakeLeverage: 6
+  brakeDrag: 0.02
+  brakeForce: 8000
   airTurnModifier: 0.15
   upForce: 3
-  forwardDrag: 0.015
-  sideDrag: 0.2
-  turnPower: 0.1
-  bankRate: 120
-  maxBankAngle: 30
+  forwardDrag: 0.06
+  sideDrag: 0.3
+  airDragModifier: 0.2
+  turnPower: 0.2
+  bankRate: 200
+  maxBankAngle: 40
+  targetHeight: 1
   debugRayScale: 0.01
-  targetHeight: 7
+  cameraOffset: 0.2
+  cameraOffsetOnDrift: 0.4
   cameraTarget: {fileID: 3322290248270691829}
   body: {fileID: 3322290247242711636}
 --- !u!1 &982066130667118675
