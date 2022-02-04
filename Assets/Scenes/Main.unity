@@ -487,7 +487,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 698195493156387182, guid: 1ff3b525b24aad24591d98cb343703e1, type: 3}
   m_PrefabInstance: {fileID: 1878540074}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1302686874}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 269e458c557e19e4eb16e9541bf580b3, type: 3}
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 593767203}
   m_Follow: {fileID: 1626104047}
   m_Lens:
-    FieldOfView: 60.00001
+    FieldOfView: 60.07094
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 0.9993831, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2568,6 +2568,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8466088916833134591, guid: f2650488876e375429a5cfa891bee070, type: 3}
   m_PrefabInstance: {fileID: 1300625437}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1302686874 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 698195493156387178, guid: 1ff3b525b24aad24591d98cb343703e1, type: 3}
+  m_PrefabInstance: {fileID: 1878540074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1302686875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302686874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 05596ca62d361d84d920c29c415fbecb, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50402a91-d8c2-4a99-a6bd-4853d320fb6c
+    m_ActionName: Ship/Restart[/Keyboard/r,/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 810d2533-77d1-42ae-ad63-a69ad9efbe1d
+    m_ActionName: Ship/Accelerate[/Keyboard/upArrow,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e96b5231-7ba8-481a-b979-89c7b4a7b3fe
+    m_ActionName: Ship/Turn[/XInputControllerWindows/leftStick/x,/XInputControllerWindows1/leftStick/x,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 101526ab-3548-4956-bc32-f59a4814383b
+    m_ActionName: Ship/Reverse[/Keyboard/downArrow,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 395771ea-c32d-45fe-bbef-448c6b99ff7a
+    m_ActionName: Ship/Brake[/Keyboard/space,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 00768891-625d-4360-97f2-9d212190ca2f
+    m_ActionName: Ship/Left Drift[/Keyboard/z,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b59f495-8059-4cc5-9e3a-0debebc648e0
+    m_ActionName: Ship/Right Drift[/Keyboard/x,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Ship
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1302686876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302686874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6c2da2db9374dada6761b5e35121c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 05596ca62d361d84d920c29c415fbecb, type: 3}
 --- !u!1001 &1345386650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4420,7 +4496,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 200
-  field of view: 60.00001
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

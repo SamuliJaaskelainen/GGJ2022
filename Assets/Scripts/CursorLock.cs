@@ -6,6 +6,12 @@ public class CursorLock : MonoBehaviour
 {
     void Update()
     {
+        if (UnityEngine.SceneManagement.SceneManager.sceneCount > 1)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (Cursor.lockState != CursorLockMode.Locked)

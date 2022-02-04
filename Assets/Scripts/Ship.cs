@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using XInputDotNetPure;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class Ship : MonoBehaviour
 {
@@ -104,8 +104,11 @@ public class Ship : MonoBehaviour
     private int excludeShipLayerMask;
     private Vector3 groundNormal;
 
+    PlayerInput playerInput;
+
     void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         excludeShipLayerMask = ~(1 << gameObject.layer);
 
@@ -123,37 +126,27 @@ public class Ship : MonoBehaviour
 
     void Update()
     {
-        GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+        if (UnityEngine.SceneManagement.SceneManager.sceneCount == 1)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Open rebind");
+                Time.timeScale = 0.0f;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Rebind", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            }
 
-        turn = gamePadState.ThumbSticks.Left.X;
-        turn += Input.GetAxis("Turn");
-        accelerate = gamePadState.Buttons.A == ButtonState.Pressed;
-        brake = gamePadState.Buttons.X == ButtonState.Pressed;
-        reverse = gamePadState.Buttons.B == ButtonState.Pressed;
+            if (playerInput.actions["Restart"].IsPressed())
+            {
+                Debug.Log("Reset race");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+            }
 
-        if (Input.GetButton("Accelerate"))
-        {
-            accelerate = true;
-        }
-        if (Input.GetButton("Brake"))
-        {
-            brake = true;
-        }
-        if (Input.GetButton("Reverse"))
-        {
-            reverse = true;
-        }
-
-        leftBrake = gamePadState.Triggers.Left;
-        rightBrake = gamePadState.Triggers.Right;
-
-        if (Input.GetButton("LeftBrake"))
-        {
-            leftBrake = 1.0f;
-        }
-        if (Input.GetButton("RightBrake"))
-        {
-            rightBrake = 1.0f;
+            accelerate = playerInput.actions["Accelerate"].IsPressed();
+            turn = playerInput.actions["Turn"].ReadValue<float>();
+            reverse = playerInput.actions["Reverse"].IsPressed();
+            brake = playerInput.actions["Brake"].IsPressed();
+            leftBrake = playerInput.actions["Left Drift"].ReadValue<float>();
+            rightBrake = playerInput.actions["Right Drift"].ReadValue<float>();
         }
 
         isBoosting = Time.time < boostTimer;

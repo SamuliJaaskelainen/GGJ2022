@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XInputDotNetPure;
 
 public class LapSystem : MonoBehaviour
 {
@@ -67,13 +66,6 @@ public class LapSystem : MonoBehaviour
         if (currentCheckpoint > 0)
         {
             time += Time.deltaTime;
-        }
-
-        GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-        if (Input.GetButton("Restart") || gamePadState.Buttons.Y == ButtonState.Pressed)
-        {
-            Debug.Log("Reset race");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
     }
 }
