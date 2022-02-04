@@ -457,6 +457,8 @@ GameObject:
   - component: {fileID: 698195493156387183}
   - component: {fileID: 698195493156387182}
   - component: {fileID: 1878540077}
+  - component: {fileID: 1302686875}
+  - component: {fileID: 1302686876}
   m_Layer: 6
   m_Name: Vehicle
   m_TagString: Untagged
@@ -527,25 +529,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downForce: 0.01
-  accelerationForce: 350
+  accelerationForce: 500
   reverseForce: 200
   brakeLeverage: 6
   brakeDrag: 0.02
-  brakeForce: 800
+  brakeForce: 550
   airTurnModifier: 0.15
   upForce: 3
   forwardDrags:
   - 0.06
   - 0.05
   - 0.04
-  - 0.02
+  - 0.025
   boostDrag: 0.01
-  sideDrag: 0.2
-  airDragModifier: 0.2
-  turnPower: 0.2
-  bankRate: 150
-  maxBankAngle: 30
+  boostTime: 1
+  sideDrag: 0.125
+  airDragModifier: 0.1
+  turnPower: 0.25
+  bankRate: 300
+  maxBankAngle: 45
   targetHeight: 1
+  dimensionMinVelocity: 2500
   debugRayScale: 0.01
   yawDelay: 0.3
   yawSpeed: 100
@@ -560,12 +564,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c637e0f5530fab24695a3c89f1a2fb7f, type: 3}
   - {fileID: 8300000, guid: f39202f0a52da854babcc267a18269f2, type: 3}
   - {fileID: 8300000, guid: 5c8c47a849dff8243b4fe174182d19cd, type: 3}
-  boostTime: 1
   bikeCamera: {fileID: 0}
   dimension1: {fileID: 0}
   dimension2: {fileID: 0}
   wireRenderer: {fileID: 0}
-  dimensionMinVelocity: 3000
   cameraTarget: {fileID: 3322290248270691829}
   body: {fileID: 3322290247242711636}
   idleBody: {fileID: 3879258637481388892}
@@ -582,6 +584,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930c0e3af94e5504faca7d0b470b32f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1302686875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698195493156387178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 05596ca62d361d84d920c29c415fbecb, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50402a91-d8c2-4a99-a6bd-4853d320fb6c
+    m_ActionName: Ship/Restart[/Keyboard/r,/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 810d2533-77d1-42ae-ad63-a69ad9efbe1d
+    m_ActionName: Ship/Accelerate[/Keyboard/upArrow,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e96b5231-7ba8-481a-b979-89c7b4a7b3fe
+    m_ActionName: Ship/Turn[/XInputControllerWindows/leftStick/x,/XInputControllerWindows1/leftStick/x,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 101526ab-3548-4956-bc32-f59a4814383b
+    m_ActionName: Ship/Reverse[/Keyboard/downArrow,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 395771ea-c32d-45fe-bbef-448c6b99ff7a
+    m_ActionName: Ship/Brake[/Keyboard/space,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 00768891-625d-4360-97f2-9d212190ca2f
+    m_ActionName: Ship/Left Drift[/Keyboard/z,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b59f495-8059-4cc5-9e3a-0debebc648e0
+    m_ActionName: Ship/Right Drift[/Keyboard/x,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Ship
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1302686876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698195493156387178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6c2da2db9374dada6761b5e35121c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 05596ca62d361d84d920c29c415fbecb, type: 3}
 --- !u!1 &982066130667118675
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,9 @@ public class Ship : MonoBehaviour
     [Header("Air resistance on Z axis")]
     public float boostDrag;
 
+    [Header("Duration of boost")]
+    public float boostTime;
+
     [Header("Air resistance on X axis")]
     public float sideDrag = 0.2f;
 
@@ -56,42 +59,43 @@ public class Ship : MonoBehaviour
     [Header("Hover height")]
     public float targetHeight = 1.0f;
 
+    [Header("Min velocity^2 to stay in 2nd dimension")]
+    public float dimensionMinVelocity = 3000.0f;
+
     [Header("Scale of editor debug rays")]
     public float debugRayScale = 0.01f;
 
+    [Header("Visuals")]
     public float yawDelay = 0.2f;
-
     public float yawSpeed = 180.0f;
-
     public float yawHalfSpeed = 50.0f;
-
     public float visualRotationRate = 15.0f;
 
+    [Header("Camera offsets")]
     public float normalCameraOffset = 15.0f;
-
     public float driftCameraOffset = 15.0f;
 
-
+    [Header("Audio")]
     public AudioSource driveAudio;
     public AudioSource boostAudio;
     public AudioSource driftAudio;
     public AudioClip[] driveClips;
-    public float boostTime;
 
+    [Header("Object references")]
     public CinemachineVirtualCamera bikeCamera;
     public GameObject dimension1;
     public GameObject dimension2;
     public WireframeRenderer wireRenderer;
-    public float dimensionMinVelocity = 3000.0f;
+    public Transform cameraTarget;
+    public Transform body;
+    public Transform idleBody;
+    public Transform accBody;
 
     int warps;
     float boostTimer;
     bool isBoosting;
     bool isDrifting;
-    public Transform cameraTarget;
-    public Transform body;
-    public Transform idleBody;
-    public Transform accBody;
+
     float turn;
     private float bank;
     private bool accelerate;
