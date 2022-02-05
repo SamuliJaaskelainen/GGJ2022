@@ -9,6 +9,7 @@ namespace AudioRender
         public void Dispose()
         {
         }
+
         void Start() {
             Camera.main.clearFlags = CameraClearFlags.Nothing;
             Camera.onPostRender += OnPostRenderCallback;
@@ -51,9 +52,8 @@ namespace AudioRender
             this.intensity = intensity;
         }
 
-        public void DrawCircle(float radius)
-        {
-            // TODO
+        public void DrawCircle(float radius) {
+            throw new NotImplementedException("DrawCircle not implemented yet.");
         }
 
         public void DrawLine(Vector2 point, float intensity = -1) {
@@ -74,8 +74,8 @@ namespace AudioRender
             }
         }
 
-        public Material decayMaterial;
-        public Material lineMaterial;
+        [SerializeField] private Material decayMaterial;
+        [SerializeField] private Material lineMaterial;
         private GfxRenderer gfxRenderer;
         private List<GfxLine> lines;
         private List<GfxLine> submittedLines;

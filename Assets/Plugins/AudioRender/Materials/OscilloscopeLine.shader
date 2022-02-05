@@ -2,10 +2,10 @@ Shader "Unlit/OscilloscopeLine"
 {
     Properties
     {
-        _Color ("Color", Color) = (0.0, 1.0, 0.0, 1.0)
+        _Color ("Color", Color) = (0.024, 0.973, 0.340, 1.000)
         _DecayTime ("Decay time", Float) = 0.1
-        _Intensity ("Intensity", Float) = 1.0
-        _Radius ("Radius", Float) = 0.001
+        _Intensity ("Intensity", Float) = 100
+        _Radius ("Radius", Float) = 0.0135
     }
     SubShader
     {
@@ -39,17 +39,6 @@ Shader "Unlit/OscilloscopeLine"
                 float length : TEXCOORD3;
             };
 
-            #define SQRT2 1.4142135623730951
-            #define SQRT2PI 2.506628274631001
-
-            float erf(float x) {
-                float s = sign(x);
-                float a = abs(x);
-                x = 1.0 + (0.278393 + (0.230389 + 0.078108 * a * a) * a) * a;
-                x *= x;
-                return s - s / (x * x);
-            }
-
             v2f vert (appdata v)
             {
                 v2f o;
@@ -66,19 +55,29 @@ Shader "Unlit/OscilloscopeLine"
             uniform float _Intensity;
             uniform float _DecayTime;
 
+            float erf(float x) {
+                float s = sign(x);
+                float a = abs(x);
+                x = 1.0 + (0.278393 + (0.230389 + 0.078108 * a * a) * a) * a;
+                x *= x;
+                return s - s / (x * x);
+            }
+
+            // Math based on: http://nicktasios.nl/posts/simulating-an-xy-oscilloscope-on-the-gpu.html
             float4 frag (v2f i) : SV_Target
             {
+                const float sqrt2 = 1.4142136f;
+                const float sqrt2pi = 2.506628f;
+
                 float sigma = _Radius / 5.0;
                 float multiplier = _Intensity * i.deltaTime;
 
                 if(i.length < 1e-5)
                 {
-                    multiplier *= exp(-dot(i.coord, i.coord) / (2.0 * sigma * sigma)) / (SQRT2PI * sigma);
+                    multiplier *= exp(-dot(i.coord, i.coord) / (2.0 * sigma * sigma)) / (sqrt2pi * sigma);
                 } else {
-                    float f = i.deltaTime * sigma / (SQRT2 * i.length * _DecayTime);
-
-                    multiplier *= erf(f + i.coord.x / (SQRT2 * sigma)) - erf(f + (i.coord.x - i.length) / (SQRT2 * sigma));
-
+                    float f = i.deltaTime * sigma / (sqrt2 * i.length * _DecayTime);
+                    multiplier *= erf(f + i.coord.x / (sqrt2 * sigma)) - erf(f + (i.coord.x - i.length) / (sqrt2 * sigma));
                     multiplier *= exp(
                         f * f -
                         i.coord.y * i.coord.y / (2.0 * sigma * sigma) -

@@ -2,7 +2,7 @@ Shader "Unlit/OscilloscopeDecay"
 {
     Properties
     {
-        _DecayConstant ("Decay constant", Float) = 0.9
+        _DecayConstant ("Decay constant", Float) = 45
     }
     SubShader
     {
