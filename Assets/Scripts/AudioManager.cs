@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource[] musicLayers;
 
     public GameObject audioPrefab;
+
+    public GameObject song_1;
     List<GameObject> audioPoolObject = new List<GameObject>();
 
     public static AudioManager Instance;
@@ -21,8 +23,8 @@ public class AudioManager : MonoBehaviour
     {
         for (int i = 0; i < 100; ++i)
         {
-            GameObject audoObject = Instantiate(audioPrefab, transform) as GameObject;
-            audioPoolObject.Add(audoObject);
+            GameObject audioObject = Instantiate(audioPrefab, transform) as GameObject;
+            audioPoolObject.Add(audioObject);
         }
     }
 
