@@ -8,8 +8,11 @@ public class AudioManager : MonoBehaviour
     public AudioSource[] musicLayers;
 
     public GameObject audioPrefab;
+    
+    public Song song_1;
+    public Song song_2;
+    public Song activeSong;
 
-    public GameObject song_1;
     List<GameObject> audioPoolObject = new List<GameObject>();
 
     public static AudioManager Instance;
@@ -26,6 +29,7 @@ public class AudioManager : MonoBehaviour
             GameObject audioObject = Instantiate(audioPrefab, transform) as GameObject;
             audioPoolObject.Add(audioObject);
         }
+
     }
 
     public void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1.0f, float pitch = 1.0f)
@@ -92,6 +96,84 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(audioObject.GetComponent<AudioSource>().clip.length);
         audioPoolObject.Add(audioObject);
+    }
+
+    public void LoadSong(int index)
+    {
+        // Load a song
+
+        if (index == 1)
+        {
+            activeSong = song_1;
+        }
+        else if (index == 2)
+        {
+            activeSong = song_2;
+        }
+        else
+        {
+            activeSong = song_1;
+        }
+
+        activeSong.base_melody_loop.Play();
+        activeSong.base_perc_loop.Play();
+        activeSong.energy_one.Play();
+        activeSong.energy_two.Play();
+        activeSong.energy_three.Play();
+        activeSong.warp_main.Play();
+        activeSong.warp_melody.Play();
+
+    }
+        
+    public void SongNoWarp()
+    {
+        // Play layers of song for energy level 1
+        //
+        activeSong.base_melody_loop.mute = false;
+        activeSong.base_perc_loop.mute = false;
+        activeSong.energy_one.mute = false;
+
+        activeSong.energy_two.mute = true;
+        activeSong.energy_three.mute = true;
+        activeSong.warp_main.mute = true;
+        activeSong.warp_melody.mute = true;
+    }
+
+    public void EnergyIncrease(int level)
+    {
+        // Add stem for increased energy level on boost
+        if (level == 0)
+        {
+            activeSong.energy_one.mute = false;
+            activeSong.energy_two.mute = true;
+            activeSong.energy_three.mute = true;
+        }
+        else if (level == 1)
+        {
+            activeSong.energy_one.mute = true;
+            activeSong.energy_two.mute = false;
+            activeSong.energy_three.mute = true;
+        }
+        else
+        {
+            activeSong.energy_one.mute = true;
+            activeSong.energy_two.mute = true;
+            activeSong.energy_three.mute = false;
+        }
+    }
+
+    public void SongWarp ()
+    {
+        // Play layers of song for warping
+
+        activeSong.base_melody_loop.mute = false;
+        activeSong.base_perc_loop.mute = false;
+        activeSong.energy_one.mute = true;
+
+        activeSong.energy_two.mute = true;
+        activeSong.energy_three.mute = true;
+        activeSong.warp_main.mute = false;
+        activeSong.warp_melody.mute = false;
     }
 
     public void SetMusicLayer(int index, bool on)

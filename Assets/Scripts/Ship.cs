@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -122,10 +122,9 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.SetMusicLayer(2, false);
-        AudioManager.Instance.SetMusicLayer(3, false);
-        AudioManager.Instance.SetMusicLayer(4, false);
-        AudioManager.Instance.SetMusicLayer(5, false);
+        AudioManager.Instance.LoadSong(1);
+        AudioManager.Instance.SongNoWarp();
+
     }
 
     void Update()
@@ -274,10 +273,7 @@ public class Ship : MonoBehaviour
         if (dimension2.activeSelf && rb.velocity.sqrMagnitude < dimensionMinVelocity)
         {
             ShiftDimension();
-            AudioManager.Instance.SetMusicLayer(2, false);
-            AudioManager.Instance.SetMusicLayer(3, false);
-            AudioManager.Instance.SetMusicLayer(4, false);
-            AudioManager.Instance.SetMusicLayer(5, false);
+            AudioManager.Instance.SongNoWarp();
             warps = 0;
         }
 
@@ -305,22 +301,20 @@ public class Ship : MonoBehaviour
         if (warps >= 3)
         {
             ShiftDimension();
+            AudioManager.Instance.SongWarp();
         }
 
-        if (warps == 1)
+        if (warps == 0)
         {
-            AudioManager.Instance.SetMusicLayer(2, true);
+            AudioManager.Instance.EnergyIncrease(0);
         }
-        else if (warps == 2)
+        else if (warps == 1)
         {
-            AudioManager.Instance.SetMusicLayer(2, false);
-            AudioManager.Instance.SetMusicLayer(3, true);
+            AudioManager.Instance.EnergyIncrease(1);
         }
         else
         {
-            AudioManager.Instance.SetMusicLayer(3, false);
-            AudioManager.Instance.SetMusicLayer(4, true);
-            AudioManager.Instance.SetMusicLayer(5, true);
+            AudioManager.Instance.EnergyIncrease(2);
         }
     }
 
