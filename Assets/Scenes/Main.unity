@@ -303,7 +303,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 593767203}
   m_Follow: {fileID: 1626104047}
   m_Lens:
-    FieldOfView: 60.00002
+    FieldOfView: 60.00001
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 200
@@ -311,7 +311,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.9993831, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -813,7 +813,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 200
-  field of view: 60.00002
+  field of view: 60.00001
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -900,11 +900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2861ae79aae9140b7db69a0cdb5a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderDeviceType: 2
+  renderDeviceType: 0
   renderCamera: {fileID: 5161361268852581059}
-  scaleX: -2
+  scaleX: 2
   scaleY: -2
-  intensity: 0.35
+  intensity: 0.01
   randomOffset: 0
   useLineToTriangleClipping: 1
   logVerbose: 0

@@ -631,7 +631,8 @@ public class WireframeRenderer : MonoBehaviour
         for (int i = 0; i < args.Length; i++)
         {
             Debug.Log("ARG" + i + ": " + args[i]);
-            if (args[i] == "-screenRender") {
+            if (args[i] == "-screenRender")
+            {
                 renderDeviceType = RenderDeviceType.Screen;
                 Debug.Log("Use screen render");
             }
@@ -670,12 +671,14 @@ public class WireframeRenderer : MonoBehaviour
             renderDevice = new AudioRender.ScreenRenderDevice(Application.streamingAssetsPath + "/ScopeBackground.jpg", true, true);
             Debug.Log("ScreenRenderDevice initialized");
         }
-        else if(renderDeviceType == RenderDeviceType.Audio)
+        else if (renderDeviceType == RenderDeviceType.Audio)
         {
             Debug.Log("Initializing AudioRenderDevice");
             renderDevice = new AudioRender.AudioRenderDevice(new Vector2(scaleX, scaleY));
             Debug.Log("AudioRenderDevice initialized");
-        } else {
+        }
+        else
+        {
             Debug.Log("Initializing GfxRenderDevice");
             renderDevice = GetComponent<AudioRender.GfxRenderDevice>();
             Debug.Log("GfxRenderDevice initialized");
@@ -713,6 +716,17 @@ public class WireframeRenderer : MonoBehaviour
 
         renderDevice.Begin();
         renderDevice.SetIntensity(intensity);
+        if (Input.GetKey(KeyCode.F2))
+        {
+            intensity -= Time.deltaTime * 0.1f;
+            intensity = Mathf.Clamp(intensity, 0.0045f, 1.0f);
+        }
+        else if (Input.GetKey(KeyCode.F3))
+        {
+            intensity += Time.deltaTime * 0.1f;
+            intensity = Mathf.Clamp(intensity, 0.0045f, 1.0f);
+        }
+
         // renderDevice.SetPoint(Vector2.zero);
         // renderDevice.DrawCircle(0.5f);
 
