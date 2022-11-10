@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="082dbaf4-564c-414f-bdc9-30318cd00d4e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Ship.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +47,7 @@
       <workItem from="1644840992513" duration="6775000" />
       <workItem from="1645692206739" duration="601000" />
       <workItem from="1668086283266" duration="1267000" />
+      <workItem from="1668087839508" duration="1003000" />
     </task>
     <servers />
   </component>

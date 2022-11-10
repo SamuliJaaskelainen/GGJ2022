@@ -92,9 +92,11 @@ public class Ship : MonoBehaviour
     public Transform accBody;
 
     int warps;
+	int warpCount;
     float boostTimer;
     bool isBoosting;
     bool isDrifting;
+	bool hasWarped;
 
     float turn;
     private float bank;
@@ -122,10 +124,9 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.SetMusicLayer(2, false);
-        AudioManager.Instance.SetMusicLayer(3, false);
-        AudioManager.Instance.SetMusicLayer(4, false);
-        AudioManager.Instance.SetMusicLayer(5, false);
+        AudioManager.Instance.LoadSong(1);
+        AudioManager.Instance.EnergyChange(0);
+		warpCount = 0;
     }
 
     void Update()
@@ -274,10 +275,7 @@ public class Ship : MonoBehaviour
         if (dimension2.activeSelf && rb.velocity.sqrMagnitude < dimensionMinVelocity)
         {
             ShiftDimension();
-            AudioManager.Instance.SetMusicLayer(2, false);
-            AudioManager.Instance.SetMusicLayer(3, false);
-            AudioManager.Instance.SetMusicLayer(4, false);
-            AudioManager.Instance.SetMusicLayer(5, false);
+            AudioManager.Instance.EnergyChange(1);
             warps = 0;
         }
 
@@ -295,7 +293,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Warp()
+   public void Warp()
     {
         AudioManager.Instance.PlaySound("WarpEnter", transform.position);
         boostTimer = Time.time + boostTime;
@@ -304,23 +302,30 @@ public class Ship : MonoBehaviour
         wireRenderer.randomOffset = 0.025f * warps;
         if (warps >= 3)
         {
+			warpCount ++;
             ShiftDimension();
+			if ((warpCount % 2) == 1)
+				{
+				AudioManager.Instance.EnergyChange(4);
+				}
+			else
+				{
+				AudioManager.Instance.EnergyChange(5);
+				}
+
         }
 
-        if (warps == 1)
+        if (warps == 0)
         {
-            AudioManager.Instance.SetMusicLayer(2, true);
+            AudioManager.Instance.EnergyChange(0);
         }
-        else if (warps == 2)
+        else if (warps == 1)
         {
-            AudioManager.Instance.SetMusicLayer(2, false);
-            AudioManager.Instance.SetMusicLayer(3, true);
+            AudioManager.Instance.EnergyChange(1);
         }
         else
         {
-            AudioManager.Instance.SetMusicLayer(3, false);
-            AudioManager.Instance.SetMusicLayer(4, true);
-            AudioManager.Instance.SetMusicLayer(5, true);
+            AudioManager.Instance.EnergyChange(2);
         }
     }
 

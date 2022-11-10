@@ -127,66 +127,8 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public void SongNoWarp(bool has_warped)
+    public void EnergyChange(int level)
     {
-        // Play layers of song for energy level 1
-        //
-        if (has_warped)
-        { 
-            activeSong.base_loop.mute = true;
-            activeSong.level_one.mute = false;
-            activeSong.level_two.mute = true;
-            activeSong.level_three.mute = true;
-            activeSong.warp_1.mute = true;
-            activeSong.warp_2.mute = true;
-        }
-
-        else
-        {
-            activeSong.base_loop.mute = false;
-            activeSong.level_one.mute = true;
-            activeSong.level_two.mute = true;
-            activeSong.level_three.mute = true;
-            activeSong.warp_1.mute = true;
-            activeSong.warp_2.mute = true;
-        }
-
-    }
-
-    public void EnergyIncrease(int level, bool has_warped)
-    {
-        // do not play base_loop if player has already warped
-        if (has_warped)
-        {
-            if (level == 0)
-            {
-                activeSong.base_loop.mute = true;
-                activeSong.level_one.mute = false;
-                activeSong.level_two.mute = true;
-                activeSong.level_three.mute = true;
-                activeSong.warp_1.mute = true;
-                activeSong.warp_2.mute = true;
-            }
-            else if (level == 1)
-            {
-                activeSong.base_loop.mute = true;
-                activeSong.level_one.mute = true;
-                activeSong.level_two.mute = false;
-                activeSong.level_three.mute = true;
-                activeSong.warp_1.mute = true;
-                activeSong.warp_2.mute = true;
-            }
-            else
-            {
-                activeSong.base_loop.mute = true;
-                activeSong.level_one.mute = true;
-                activeSong.level_two.mute = true;
-                activeSong.level_three.mute = false;
-                activeSong.warp_1.mute = true;
-                activeSong.warp_2.mute = true;
-            }
-        }
-        else
         {
             if (level == 0)
             {
@@ -206,7 +148,7 @@ public class AudioManager : MonoBehaviour
                 activeSong.warp_1.mute = true;
                 activeSong.warp_2.mute = true;
             }
-            else
+            else if (level == 2)
             {
                 activeSong.base_loop.mute = true;
                 activeSong.level_one.mute = true;
@@ -215,32 +157,36 @@ public class AudioManager : MonoBehaviour
                 activeSong.warp_1.mute = true;
                 activeSong.warp_2.mute = true;
             }
+            else if (level == 3)
+            {
+                activeSong.base_loop.mute = true;
+                activeSong.level_one.mute = true;
+                activeSong.level_two.mute = true;
+                activeSong.level_three.mute = false;
+                activeSong.warp_1.mute = true;
+                activeSong.warp_2.mute = true;
+            }
+            else if (level == 4)
+            {
+                activeSong.base_loop.mute = true;
+                activeSong.level_one.mute = true;
+                activeSong.level_two.mute = true;
+                activeSong.level_three.mute = true;
+                activeSong.warp_1.mute = false;
+                activeSong.warp_2.mute = true;
+            }
+            else
+            {
+                activeSong.base_loop.mute = true;
+                activeSong.level_one.mute = true;
+                activeSong.level_two.mute = true;
+                activeSong.level_three.mute = true;
+                activeSong.warp_1.mute = true;
+                activeSong.warp_2.mute = false;
+            }
         }
     }
-
-    public void SongWarp (int warp_switch)
-    {
-        // Play layers of song for warping
-
-        if (warp_switch == 0)
-        {
-            activeSong.base_loop.mute = true;
-            activeSong.level_one.mute = true;
-            activeSong.level_two.mute = true;
-            activeSong.level_three.mute = true;
-            activeSong.warp_1.mute = false;
-            activeSong.warp_2.mute = true;
-        }
-        else
-        {
-            activeSong.base_loop.mute = true;
-            activeSong.level_one.mute = true;
-            activeSong.level_two.mute = true;
-            activeSong.level_three.mute = true;
-            activeSong.warp_1.mute = true;
-            activeSong.warp_2.mute = false;
-        }
-    }
+    
 
     public void SetMusicLayer(int index, bool on)
     {
