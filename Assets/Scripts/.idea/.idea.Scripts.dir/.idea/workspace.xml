@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be02c86d-0641-4b2c-90c4-b6eb7da5922b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Ship.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +56,7 @@
       <workItem from="1668086283266" duration="1267000" />
       <workItem from="1668087839508" duration="1003000" />
       <workItem from="1668092191990" duration="642000" />
-      <workItem from="1668092848028" duration="2255000" />
+      <workItem from="1668092848028" duration="2702000" />
     </task>
     <servers />
   </component>
