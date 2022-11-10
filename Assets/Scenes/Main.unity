@@ -1010,6 +1010,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 95197687917655243, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 104065884590588726, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 662825590596353154, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 858797163407306291, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 978750863858043870, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258799758654816170, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387096661213333900, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640783013029759385, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688732608944979471, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752274205050160134, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3028069481232913279, guid: c0333801700079042a948b860857139a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1054,9 +1094,89 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3354036791934713186, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3467775133648595822, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842306053782377478, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968101541371107238, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5311149176656945582, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765246265643, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765257846733, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 7980753765300419327, guid: c0333801700079042a948b860857139a, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765408788319, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765783971595, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765833978124, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753765928454561, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753766007220682, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753766483859497, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753766558677999, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753766859028161, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753767174620247, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980753767255873437, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093451368253842853, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530255384534837300, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090838045508215905, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0333801700079042a948b860857139a, type: 3}
