@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="082dbaf4-564c-414f-bdc9-30318cd00d4e" name="Changes" comment="">
+    <list default="true" id="be02c86d-0641-4b2c-90c4-b6eb7da5922b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Prefabs/Song1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Prefabs/Song1.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AudioManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Ship.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

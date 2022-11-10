@@ -737,6 +737,12 @@ MonoBehaviour:
   - {fileID: 4955235445674244127}
   - {fileID: 4955235445428131284}
   audioPrefab: {fileID: 2926104041387123530, guid: c10134d40cd20154f9486b11fdbbfbf5, type: 3}
+  song_1: {fileID: 0}
+  song_2: {fileID: 0}
+  song_3: {fileID: 0}
+  song_4: {fileID: 0}
+  song_5: {fileID: 0}
+  activeSong: {fileID: 0}
 --- !u!1 &4955235446101181056
 GameObject:
   m_ObjectHideFlags: 0
