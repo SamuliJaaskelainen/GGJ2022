@@ -222,14 +222,24 @@ public class AudioManager : MonoBehaviour
     {
         // Play layers of song for warping
 
-        activeSong.base_melody_loop.mute = false;
-        activeSong.base_perc_loop.mute = false;
-        activeSong.energy_one.mute = true;
-
-        activeSong.energy_two.mute = true;
-        activeSong.energy_three.mute = true;
-        activeSong.warp_main.mute = false;
-        activeSong.warp_melody.mute = false;
+        if (warp_switch == 0)
+        {
+            activeSong.base_loop.mute = true;
+            activeSong.level_one.mute = true;
+            activeSong.level_two.mute = true;
+            activeSong.level_three.mute = true;
+            activeSong.warp_1.mute = false;
+            activeSong.warp_2.mute = true;
+        }
+        else
+        {
+            activeSong.base_loop.mute = true;
+            activeSong.level_one.mute = true;
+            activeSong.level_two.mute = true;
+            activeSong.level_three.mute = true;
+            activeSong.warp_1.mute = true;
+            activeSong.warp_2.mute = false;
+        }
     }
 
     public void SetMusicLayer(int index, bool on)

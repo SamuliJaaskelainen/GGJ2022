@@ -2,66 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="082dbaf4-564c-414f-bdc9-30318cd00d4e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2BASE.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2BASE.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL01.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL01.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL02.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL02.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL03.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2LVL03.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2MAX1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2MAX1.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2MAX2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ003V2MAX2.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3BASE.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3BASE.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL01.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL01.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL02.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL02.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL03.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3LVL03.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3MAX1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3MAX1.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3MAX2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ004V3MAX2.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2BASE.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2BASE.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL01.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL01.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL02.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL02.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL03.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2LVL03.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2MAX1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2MAX1.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2MAX2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ007V2MAX2.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1BASE.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1BASE.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL01.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL01.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL02.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL02.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL03.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1LVL03.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1MAX1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1MAX1.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1MAX2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ009V1MAX2.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1BASE.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1BASE.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL01.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL01.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL02.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL02.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL03.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1LVL03.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1MAX1.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1MAX1.wav.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1MAX2.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Audio/FGJ010V1MAX2.wav.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AudioManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +44,7 @@
       <workItem from="1644748557618" duration="1283000" />
       <workItem from="1644840992513" duration="6775000" />
       <workItem from="1645692206739" duration="601000" />
-      <workItem from="1668086283266" duration="912000" />
+      <workItem from="1668086283266" duration="1267000" />
     </task>
     <servers />
   </component>
