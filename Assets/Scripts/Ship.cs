@@ -126,7 +126,7 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.LoadSong(UnityEngine.Random.Range(0,4));
+        AudioManager.Instance.LoadSong(UnityEngine.Random.Range(0,5));
         AudioManager.Instance.EnergyChange(0);
 		warpCount = 0;
     }
