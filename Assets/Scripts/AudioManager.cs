@@ -105,17 +105,28 @@ public class AudioManager : MonoBehaviour
     {
         // Load a song
 
-        if (index == 1)
+        if (index == 0)
         {
             activeSong = song_1;
         }
-        else if (index == 2)
+        else if (index == 1)
         {
             activeSong = song_2;
         }
-        else
+
+        else if (index == 2)
         {
-            activeSong = song_1;
+            activeSong = song_3;
+        }
+
+        else if (index == 3)
+        {
+            activeSong = song_4;
+        }
+
+        else if (index == 4)
+        {
+            activeSong = song_5;
         }
 
         activeSong.base_loop.Play();

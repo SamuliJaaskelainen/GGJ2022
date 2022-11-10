@@ -3,14 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="be02c86d-0641-4b2c-90c4-b6eb7da5922b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Prefabs/AudioManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Prefabs/Song1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Prefabs/Song1.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scripts.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Ship.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/TestRenderer.cs" root0="FORCE_HIGHLIGHTING" />
@@ -34,12 +43,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="082dbaf4-564c-414f-bdc9-30318cd00d4e" name="Changes" comment="" />
+      <changelist id="be02c86d-0641-4b2c-90c4-b6eb7da5922b" name="Changes" comment="" />
       <created>1644748543978</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -49,6 +59,8 @@
       <workItem from="1645692206739" duration="601000" />
       <workItem from="1668086283266" duration="1267000" />
       <workItem from="1668087839508" duration="1003000" />
+      <workItem from="1668092191990" duration="642000" />
+      <workItem from="1668092848028" duration="1055000" />
     </task>
     <servers />
   </component>

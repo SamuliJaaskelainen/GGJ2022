@@ -93,6 +93,7 @@ public class Ship : MonoBehaviour
 
     int warps;
 	int warpCount;
+    int warpSwitch;
     float boostTimer;
     bool isBoosting;
     bool isDrifting;
@@ -124,7 +125,7 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.LoadSong(1);
+        AudioManager.Instance.LoadSong(2);
         AudioManager.Instance.EnergyChange(0);
 		warpCount = 0;
     }
@@ -303,15 +304,8 @@ public class Ship : MonoBehaviour
         if (warps >= 3)
         {
 			warpCount ++;
+            warpSwitch = warpCount % 2;
             ShiftDimension();
-			if ((warpCount % 2) == 1)
-				{
-				AudioManager.Instance.EnergyChange(4);
-				}
-			else
-				{
-				AudioManager.Instance.EnergyChange(5);
-				}
 
         }
 
@@ -338,10 +332,20 @@ public class Ship : MonoBehaviour
         if (dimension1.activeSelf)
         {
             AudioManager.Instance.PlaySound("DimensionShiftTo1", transform.position);
+            AudioManager.Instance.EnergyChange(1);
+            
         }
         else
         {
             AudioManager.Instance.PlaySound("DimensionShiftTo2", transform.position);
+            if ((warpCount % 2) == 1)
+            {
+                AudioManager.Instance.EnergyChange(4);
+            }
+            else
+            {
+                AudioManager.Instance.EnergyChange(5);
+            }
         }
     }
 
