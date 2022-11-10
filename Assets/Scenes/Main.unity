@@ -311,7 +311,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1392157, y: 1}
+    m_SensorSize: {x: 1.7784314, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1130,10 +1130,18 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.65
       objectReference: {fileID: 0}
+    - target: {fileID: 7980753765408788319, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ac5497474be6c4d4ca7edebb65533bcd, type: 3}
     - target: {fileID: 7980753765783971595, guid: c0333801700079042a948b860857139a, type: 3}
       propertyPath: m_Volume
       value: 0.65
       objectReference: {fileID: 0}
+    - target: {fileID: 7980753765783971595, guid: c0333801700079042a948b860857139a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d2f68738a3845c4bb9c8063da1b5c6f, type: 3}
     - target: {fileID: 7980753765833978124, guid: c0333801700079042a948b860857139a, type: 3}
       propertyPath: m_Volume
       value: 0.65
