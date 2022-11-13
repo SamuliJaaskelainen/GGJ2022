@@ -16,6 +16,7 @@ public class Checkpoint : MonoBehaviour
                 lapSystem = GetComponentInParent<LapSystem>();
             }
             lapSystem.HitCheckpoint(index);
+            other.GetComponentInParent<Ship>().SetRespawn();
         }
     }
 }

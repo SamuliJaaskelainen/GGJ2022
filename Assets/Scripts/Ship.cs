@@ -92,8 +92,8 @@ public class Ship : MonoBehaviour
     public Transform accBody;
 
     int warps;
-	int warpCount;
-    
+    int warpCount;
+
     bool hasWarped;
     float boostTimer;
     bool isBoosting;
@@ -114,6 +114,9 @@ public class Ship : MonoBehaviour
 
     PlayerInput playerInput;
 
+    Vector3 checkpointPos;
+    Quaternion checkpointRot;
+
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -126,9 +129,10 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.LoadSong(UnityEngine.Random.Range(0,5));
+        AudioManager.Instance.LoadSong(UnityEngine.Random.Range(0, 5));
         AudioManager.Instance.EnergyChange(0);
-		warpCount = 0;
+        warpCount = 0;
+        SetRespawn();
     }
 
     void Update()
@@ -207,6 +211,18 @@ public class Ship : MonoBehaviour
 
         ApplyVisuals();
         // cameraTarget.forward = GetHeading();
+
+        if (transform.position.y < -100.0f)
+        {
+            transform.position = checkpointPos;
+            transform.rotation = checkpointRot;
+        }
+    }
+
+    public void SetRespawn()
+    {
+        checkpointPos = transform.position;
+        checkpointRot = transform.rotation;
     }
 
     Vector3 GetHeading()
@@ -279,7 +295,7 @@ public class Ship : MonoBehaviour
             ShiftDimension();
             AudioManager.Instance.EnergyChange(1);
             warps = 0;
-            warpCount ++;
+            warpCount++;
             hasWarped = true;
         }
 
@@ -297,7 +313,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-   public void Warp()
+    public void Warp()
     {
         AudioManager.Instance.PlaySound("WarpEnter", transform.position);
         boostTimer = Time.time + boostTime;
